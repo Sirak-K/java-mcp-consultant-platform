@@ -1,0 +1,41 @@
+{
+  "catalog_id": "candidate_presentation_generation_guidance_catalog",
+  "candidate_presentation_generation_guidance_catalog_version": "1.0",
+  "candidate_presentation_generation_guidance": {
+    "guidance_name": "candidate_presentation_generation_guidance",
+    "guidance_goal": "Generate a grounded Candidate Presentation artifact from server-owned evidence and contract data.",
+    "grounding_rules": [
+      "Use only supplied Candidate Presentation evidence and contract context.",
+      "Do not invent achievements, dates, certifications, availability, employers, client names, outcomes, or quantified results.",
+      "Prefer concise, customer-usable claims over broad profile summaries.",
+      "When evidence is weak or missing, keep the customer-facing wording modest and place uncertainty in operations review content."
+    ],
+    "customer_ready_rules": [
+      "Write for a customer reader, not for internal operations review.",
+      "Keep the customer-facing variant free from debug notes, model/runtime language, writeback language, and internal validation language.",
+      "Every Candidate Presentation artifact must describe exactly one candidate matched to exactly one mission slot.",
+      "Use Mission Overview for the slot-neutral mission summary.",
+      "Use Mission Slot Match Details for the single matched slot and place Matched Role, Matched Primary Skills, and Matched Secondary Skills under that slot details area.",
+      "Do not create standalone Matched Primary Skills or Matched Secondary Skills sections outside Mission Slot Match Details.",
+      "Do not mention availability in About the Matching Candidate.",
+      "Use customer-readable work mode labels such as on-premise, remote, or hybrid; never use runtime enum values such as ON_PREMISE.",
+      "Use Certifications only for actual certifications or certification-like credentials present in evidence; do not place general education narrative there."
+    ],
+    "ops_review_rules": [
+      "Include review notes only in operations review content.",
+      "Record gaps, uncertainty, and evidence limitations in operations review content instead of customer-facing content.",
+      "Keep operations review content useful for human approval and edit decisions."
+    ],
+    "evidence_trace_rules": [
+      "Trace important generated claims to supplied evidence.",
+      "Use evidence trace entries for major fit, skill, work mode, experience, availability, and certification claims.",
+      "Do not use evidence trace as prose narrative; keep it compact and inspectable."
+    ],
+    "disallowed_generation_behaviors": [
+      "Do not duplicate the same fit claim across multiple customer-facing sections.",
+      "Do not include removed redundant sections such as Candidate Snapshot, Role & Experience Fit, or Relevant Skills.",
+      "Do not expose internal tool names, MCP implementation details, SGLang details, or prompt/contract mechanics in customer-facing content.",
+      "Do not include CJK, Hiragana, Katakana, or Hangul characters in customer-facing content unless those characters appear in supplied evidence."
+    ]
+  }
+}

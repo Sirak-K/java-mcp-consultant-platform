@@ -1,0 +1,13 @@
+.git
+.vscode
+
+docs
+scripts_and_wrappers
+web-app
+
+logs
+mcp-server/target
+
+.env
+mcp-server.pid
+mcp-server/*.pid

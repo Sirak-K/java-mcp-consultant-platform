@@ -1,0 +1,92 @@
+server:
+  port: ${SERVER_PORT}
+  max-http-request-header-size: ${SERVER_MAX_HTTP_REQUEST_HEADER_SIZE:32768}
+  tomcat:
+    max-swallow-size: ${SERVER_TOMCAT_MAX_SWALLOW_SIZE:64MB}
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${MCP_KEYCLOAK_ISSUER_URI}
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:true}
+    locations: ${SPRING_FLYWAY_LOCATIONS:classpath:db/migration/postgresql}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: ${MCP_DB_URL}
+    username: ${MCP_DB_USERNAME}
+    password: ${MCP_DB_PASSWORD}
+
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:WARN}
+    org.springframework: ${LOG_LEVEL_SPRING:WARN}
+    org.hibernate: ${LOG_LEVEL_HIBERNATE:WARN}
+    com.zaxxer.hikari: ${LOG_LEVEL_HIKARI:WARN}
+    mcp.server: ${LOG_LEVEL_MCP_SERVER:INFO}
+
+mcp:
+  control-plane:
+    enabled: ${MCP_CONTROL_PLANE_ENABLED:true}
+  customer-data:
+    mode: ${MCP_CUSTOMER_DATA_MODE:postgresql}
+    active-flyway-locations: ${MCP_CUSTOMER_DATA_ACTIVE_FLYWAY_LOCATIONS:classpath:db/migration/postgresql}
+    active-schema-validation-mode: ${MCP_CUSTOMER_DATA_ACTIVE_SCHEMA_VALIDATION_MODE:validate}
+  security:
+    network-auth:
+      enabled: ${MCP_SECURITY_NETWORK_AUTH_ENABLED:true}
+      header-name: ${MCP_SECURITY_NETWORK_AUTH_HEADER_NAME:Authorization}
+      scheme: ${MCP_SECURITY_NETWORK_AUTH_SCHEME:Bearer}
+      bearer-token: ${MCP_SECURITY_BEARER_TOKEN:}
+      bearer-token-transition: ${MCP_SECURITY_BEARER_TOKEN_TRANSITION:}
+    rate-limit:
+      enabled: ${MCP_SECURITY_RATE_LIMIT_ENABLED:true}
+      max-requests-per-minute: ${MCP_SECURITY_RATE_LIMIT_MAX_REQUESTS_PER_MINUTE:120}
+  keycloak:
+    admin:
+      base-url: ${MCP_KEYCLOAK_ADMIN_BASE_URL}
+      realm: ${MCP_KEYCLOAK_ADMIN_REALM}
+      client-id: ${MCP_KEYCLOAK_ADMIN_CLIENT_ID}
+      client-secret: ${MCP_KEYCLOAK_ADMIN_CLIENT_SECRET}
+  observability:
+    tracing:
+      otlp:
+        enabled: ${MCP_OBSERVABILITY_OTLP_EXPORT_ENABLED:true}
+    local-logs:
+      rotation:
+        max-file-size-bytes: ${MCP_LOCAL_LOG_MAX_FILE_SIZE_BYTES:10485760}
+        max-history-files: ${MCP_LOCAL_LOG_MAX_HISTORY_FILES:10}
+    file-sink:
+      enabled: ${MCP_FILE_SINK_ENABLED:true}
+    audit-sink:
+      enabled: ${MCP_AUDIT_SINK_ENABLED:true}
+  transport:
+    active: ${MCP_TRANSPORT_ACTIVE:streamable-http}
+    http:
+      trusted-edge:
+        required: ${MCP_TRANSPORT_HTTP_TRUSTED_EDGE_REQUIRED:true}
+        require-forwarded-https: ${MCP_TRANSPORT_HTTP_TRUSTED_EDGE_REQUIRE_FORWARDED_HTTPS:true}
+        trusted-proxy-addresses: ${MCP_TRANSPORT_HTTP_TRUSTED_EDGE_TRUSTED_PROXY_ADDRESSES}
+    websocket:
+      enabled: ${MCP_TRANSPORT_WEBSOCKET_ENABLED:false}
+      allowed-origins: ${MCP_TRANSPORT_WEBSOCKET_ALLOWED_ORIGINS:}
+    stdio:
+      enabled: ${MCP_TRANSPORT_STDIO_ENABLED:false}
+    streamable-http:
+      enabled: ${MCP_TRANSPORT_STREAMABLE_HTTP_ENABLED:true}
+      endpoint-path: ${MCP_TRANSPORT_STREAMABLE_HTTP_ENDPOINT_PATH:/mcp}
+      max-request-body-bytes: ${MCP_TRANSPORT_STREAMABLE_HTTP_MAX_REQUEST_BODY_BYTES:1048576}
+      require-origin-validation: ${MCP_TRANSPORT_STREAMABLE_HTTP_REQUIRE_ORIGIN_VALIDATION:true}
+      localhost-only: ${MCP_TRANSPORT_STREAMABLE_HTTP_LOCALHOST_ONLY:false}
+      allowed-origins: ${MCP_TRANSPORT_STREAMABLE_HTTP_ALLOWED_ORIGINS}
+      allowed-hosts: ${MCP_TRANSPORT_STREAMABLE_HTTP_ALLOWED_HOSTS}
+
+management:
+  endpoint:
+    health:
+      show-details: ${MCP_MANAGEMENT_HEALTH_SHOW_DETAILS:never}
+      show-components: ${MCP_MANAGEMENT_HEALTH_SHOW_COMPONENTS:never}

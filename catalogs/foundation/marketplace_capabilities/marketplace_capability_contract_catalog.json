@@ -1,0 +1,272 @@
+{
+  "catalog_id": "marketplace_capability_contract_catalog",
+  "marketplace_capability_catalog_version": "1.0.0",
+  "marketplace_capabilities": [
+    {
+      "capability_id": "missionProposal",
+      "capability_title": "Mission Proposal",
+      "backend_endpoints": [
+        "POST /api/public/mission-proposals",
+        "POST /api/public/mission-proposal-preview",
+        "GET /api/ops/mission-proposals",
+        "PUT /api/ops/mission-proposals/{id}",
+        "PUT /api/ops/mission-proposals/{id}/approve",
+        "PUT /api/ops/mission-proposals/{id}/reject"
+      ],
+      "mcp_tools": [
+        "missionProposal.previewFromText"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities",
+        "resource://catalog/roles",
+        "resource://catalog/skill-levels",
+        "resource://catalog/skills"
+      ],
+      "react_surfaces": [
+        "missions/intake/MissionIntakePage.tsx",
+        "missions/review/MissionProposalReviewPage.tsx",
+        "missions/api/missionsApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.mission_proposal",
+        "marketplace.mission_proposal_outcome",
+        "marketplace.mission_proposal_slot",
+        "marketplace.mission_proposal_slot_required_skill",
+        "marketplace.mission_proposal_slot_secondary_required_skill"
+      ],
+      "risk_class": "EXTERNAL_SIDE_EFFECT"
+    },
+    {
+      "capability_id": "registeredMission",
+      "capability_title": "Registered Mission",
+      "backend_endpoints": [
+        "GET /api/ops/registered-missions"
+      ],
+      "mcp_tools": [],
+      "mcp_resources": [
+        "resource://marketplace/capabilities"
+      ],
+      "react_surfaces": [
+        "missions/registered/RegisteredMissionsPage.tsx",
+        "missions/api/missionsApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.mission",
+        "marketplace.mission_slot",
+        "marketplace.mission_slot_required_skill",
+        "marketplace.mission_slot_secondary_required_skill"
+      ],
+      "risk_class": "READ_ONLY"
+    },
+    {
+      "capability_id": "candidateApplication",
+      "capability_title": "Candidate Application",
+      "backend_endpoints": [
+        "POST /api/public/candidate-applications",
+        "POST /api/public/candidate-cv-preview",
+        "GET /api/ops/candidate-applications"
+      ],
+      "mcp_tools": [
+        "candidateApplication.inspectArchive"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities",
+        "resource://catalog/roles",
+        "resource://catalog/skill-levels",
+        "resource://catalog/skills"
+      ],
+      "react_surfaces": [
+        "candidate_profiles/intake/CandidateApplicationIntakePage.tsx",
+        "candidate_profiles/application_review/CandidateApplicationReviewPage.tsx",
+        "candidate_profiles/api/candidateProfilesApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.cand_appli",
+        "marketplace.cand_profile",
+        "marketplace.cand_profile_roles",
+        "marketplace.cand_profile_skills_primary",
+        "marketplace.cand_profile_skills_secondary",
+        "marketplace.cand_profile_work_experiences",
+        "marketplace.cand_profile_certifications",
+        "marketplace.cand_profile_cv",
+        "marketplace.cand_profile_educations",
+        "marketplace.candidate_to_slot_match",
+        "marketplace.match_notification_delivery"
+      ],
+      "risk_class": "EXTERNAL_SIDE_EFFECT"
+    },
+    {
+      "capability_id": "registeredCandidateProfile",
+      "capability_title": "Registered Candidate Profile",
+      "backend_endpoints": [
+        "GET /api/ops/registered-candidate-profiles",
+        "GET /api/ops/registered-candidate-profile-cards",
+        "PUT /api/ops/registered-candidate-profiles/{id}"
+      ],
+      "mcp_tools": [
+        "registeredCandidateProfile.inspect"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities",
+        "resource://catalog/roles",
+        "resource://catalog/skill-levels",
+        "resource://catalog/skills"
+      ],
+      "react_surfaces": [
+        "candidate_profiles/registered_profiles/RegisteredCandidateProfilesPage.tsx",
+        "candidate_profiles/registered_profiles/RegisteredCandidateProfileEditForm.tsx",
+        "candidate_profiles/api/candidateProfilesApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.cand_profile",
+        "marketplace.cand_profile_roles",
+        "marketplace.cand_profile_skills_primary",
+        "marketplace.cand_profile_skills_secondary",
+        "marketplace.cand_profile_work_experiences",
+        "marketplace.cand_profile_certifications",
+        "marketplace.cand_profile_cv",
+        "marketplace.cand_profile_educations"
+      ],
+      "risk_class": "MUTATING"
+    },
+    {
+      "capability_id": "companyIdentityLookup",
+      "capability_title": "Company Identity Lookup",
+      "backend_endpoints": [
+        "POST /api/public/candidate-cv-preview",
+        "POST /api/public/candidate-applications",
+        "PUT /api/ops/registered-candidate-profiles/{id}"
+      ],
+      "mcp_tools": [
+        "companyIdentity.lookup"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities"
+      ],
+      "react_surfaces": [
+        "candidate_profiles/intake/CandidateApplicationWorkExperienceSection.tsx",
+        "candidate_profiles/registered_profiles/RegisteredCandidateProfileWorkExperienceSection.tsx",
+        "candidate_profiles/api/candidateProfilesApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.company_identity_lookup",
+        "marketplace.cand_profile_work_experiences"
+      ],
+      "risk_class": "READ_ONLY"
+    },
+    {
+      "capability_id": "matchViewer",
+      "capability_title": "Match Viewer",
+      "backend_endpoints": [
+        "GET /api/ops/match-viewer"
+      ],
+      "mcp_tools": [
+        "matchDiscovery.inspect"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities"
+      ],
+      "react_surfaces": [
+        "matching/viewer/MatchViewerPage.tsx",
+        "matching/viewer/MatchViewerMissionPanel.tsx",
+        "matching/types.ts",
+        "matching/api/matchingApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.candidate_to_slot_match"
+      ],
+      "risk_class": "READ_ONLY"
+    },
+    {
+      "capability_id": "matchScoreBreakdown",
+      "capability_title": "Match Score Breakdown",
+      "backend_endpoints": [
+        "GET /api/ops/matches/{matchId}/score-breakdown"
+      ],
+      "mcp_tools": [
+        "inspectMatchScoreBreakdown"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities"
+      ],
+      "react_surfaces": [
+        "matching/viewer/MatchViewerPage.tsx",
+        "matching/viewer/MatchScoreBreakdownModal.tsx",
+        "matching/types.ts",
+        "matching/api/matchingApi.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.candidate_to_slot_match"
+      ],
+      "risk_class": "READ_ONLY"
+    },
+    {
+      "capability_id": "candidatePresentation",
+      "capability_title": "Candidate Presentation",
+      "backend_endpoints": [
+        "GET /api/ops/candidate-presentation-artifacts",
+        "GET /api/ops/candidate-presentation-artifacts/{id}",
+        "PUT /api/ops/candidate-presentation-artifacts/{id}",
+        "POST /api/ops/matches/{matchId}/candidate-presentation-generation"
+      ],
+      "mcp_tools": [
+        "candidatePresentation.collectEvidence",
+        "candidatePresentation.getGenerationContract",
+        "candidatePresentation.recordGeneratedContent",
+        "candidatePresentation.recordGenerationFailure"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities",
+        "resource://candidate-presentation/generation-contract"
+      ],
+      "react_surfaces": [
+        "matching/viewer/MatchViewerPage.tsx",
+        "candidate_presentation/artifacts/CandidatePresentationArtifactsPage.tsx",
+        "candidate_presentation/api/candidatePresentationApi.ts",
+        "candidate_presentation/types.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.candidate_presentation_artifact",
+        "marketplace.candidate_to_slot_match",
+        "marketplace.mission",
+        "marketplace.mission_slot",
+        "marketplace.cand_profile",
+        "marketplace.cand_profile_roles",
+        "marketplace.cand_profile_skills_primary",
+        "marketplace.cand_profile_skills_secondary",
+        "marketplace.cand_profile_work_experiences",
+        "marketplace.cand_profile_certifications",
+        "marketplace.cand_profile_educations"
+      ],
+      "risk_class": "MUTATING"
+    },
+    {
+      "capability_id": "matchNotification",
+      "capability_title": "Match Notification",
+      "backend_endpoints": [
+        "GET /api/ops/match-notifications/previews",
+        "GET /api/ops/match-notifications/matches/{matchId}/preview",
+        "POST /api/ops/match-notifications/matches/{matchId}/mock-send",
+        "POST /api/ops/match-notifications/matches/{matchId}/email-send"
+      ],
+      "mcp_tools": [
+        "matchNotifications.inspectPreviews",
+        "matchNotifications.previewMatch",
+        "matchNotifications.sendEmail"
+      ],
+      "mcp_resources": [
+        "resource://marketplace/capabilities"
+      ],
+      "react_surfaces": [
+        "match_notifications/preview/MatchNotificationPreviewPage.tsx",
+        "match_notifications/api/matchNotificationsApi.ts",
+        "match_notifications/types.ts"
+      ],
+      "persistence_anchors": [
+        "marketplace.match_notification_delivery",
+        "marketplace.candidate_to_slot_match"
+      ],
+      "risk_class": "EXTERNAL_SIDE_EFFECT"
+    }
+  ]
+}

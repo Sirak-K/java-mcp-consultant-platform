@@ -1,0 +1,207 @@
+{
+  "catalog_id": "mission_proposal_text_detection_catalog",
+  "mission_proposal_text_detection_catalog_version": "1.0.0",
+  "month_aliases": [
+    {
+      "month_number": 1,
+      "terms": ["jan", "januari", "january"]
+    },
+    {
+      "month_number": 2,
+      "terms": ["feb", "februari", "february"]
+    },
+    {
+      "month_number": 3,
+      "terms": ["mar", "mars", "march"]
+    },
+    {
+      "month_number": 4,
+      "terms": ["apr", "april"]
+    },
+    {
+      "month_number": 5,
+      "terms": ["maj", "may"]
+    },
+    {
+      "month_number": 6,
+      "terms": ["jun", "juni", "june"]
+    },
+    {
+      "month_number": 7,
+      "terms": ["jul", "juli", "july"]
+    },
+    {
+      "month_number": 8,
+      "terms": ["aug", "augusti", "august"]
+    },
+    {
+      "month_number": 9,
+      "terms": ["sep", "september"]
+    },
+    {
+      "month_number": 10,
+      "terms": ["okt", "oct", "oktober", "october"]
+    },
+    {
+      "month_number": 11,
+      "terms": ["nov", "november"]
+    },
+    {
+      "month_number": 12,
+      "terms": ["dec", "december"]
+    }
+  ],
+  "slot_count_words": [
+    {
+      "word": "två",
+      "count": 2
+    },
+    {
+      "word": "tva",
+      "count": 2
+    },
+    {
+      "word": "two",
+      "count": 2
+    },
+    {
+      "word": "tre",
+      "count": 3
+    },
+    {
+      "word": "three",
+      "count": 3
+    },
+    {
+      "word": "fyra",
+      "count": 4
+    },
+    {
+      "word": "four",
+      "count": 4
+    },
+    {
+      "word": "fem",
+      "count": 5
+    },
+    {
+      "word": "five",
+      "count": 5
+    }
+  ],
+  "slot_resource_terms": [
+    "konsulter",
+    "consultant",
+    "consultants",
+    "utvecklare",
+    "developer",
+    "developers",
+    "roller",
+    "roles",
+    "personer",
+    "people",
+    "resurser",
+    "resources"
+  ],
+  "mission_work_mode_signals": [
+    {
+      "work_mode": "HYBRID",
+      "terms": ["hybrid", "hybride", "hybridarbete", "hybridarbetet"]
+    },
+    {
+      "work_mode": "REMOTE",
+      "terms": ["remote", "distans", "remote-first", "remote first"]
+    },
+    {
+      "work_mode": "ON_PREMISE",
+      "terms": ["on premise", "on-premise", "on site", "on-site", "onsite", "på plats", "kontor"]
+    }
+  ],
+  "experience_level_signals": [
+    {
+      "level_key": "senior",
+      "terms": ["senior", "seniora", "seniort", "expert"],
+      "inferred_years": 5,
+      "skill_level_names": ["SENIOR", "EXPERT", "ADVANCED"]
+    },
+    {
+      "level_key": "medior",
+      "terms": ["medior", "mediora", "mid", "intermediate"],
+      "inferred_years": 3,
+      "skill_level_names": ["MID", "MEDIOR", "INTERMEDIATE"]
+    },
+    {
+      "level_key": "junior",
+      "terms": ["junior", "juniora", "juniort", "beginner"],
+      "inferred_years": 1,
+      "skill_level_names": ["JUNIOR", "BEGINNER"]
+    }
+  ],
+  "fallback_skill_level_names": ["MID", "MEDIOR", "INTERMEDIATE"],
+  "role_signals": [
+    {
+      "role_title": "Backend Developer",
+      "terms": ["backend", "java", "spring boot", "spring", "api", "server"]
+    },
+    {
+      "role_title": "Frontend Developer",
+      "terms": ["frontend", "react", "typescript", "javascript", "vue", "angular"]
+    },
+    {
+      "role_title": "Full Stack Developer",
+      "terms": ["fullstack", "full stack"]
+    },
+    {
+      "role_title": "DevOps Engineer",
+      "terms": ["devops", "ci/cd", "kubernetes", "docker", "terraform"]
+    },
+    {
+      "role_title": "Cloud Engineer",
+      "terms": ["cloud", "aws", "azure", "gcp"]
+    },
+    {
+      "role_title": "Data Engineer",
+      "terms": ["data engineer", "etl", "databricks", "spark"]
+    },
+    {
+      "role_title": "Data Scientist",
+      "terms": ["data scientist", "analytics", "statistik"]
+    },
+    {
+      "role_title": "QA / Test Engineer",
+      "terms": ["qa", "test engineer", "testautomatisering"]
+    },
+    {
+      "role_title": "Security Engineer",
+      "terms": ["security", "säkerhet", "cyber"]
+    },
+    {
+      "role_title": "System Architect",
+      "terms": ["architect", "arkitekt"]
+    },
+    {
+      "role_title": "Tech Lead",
+      "terms": ["tech lead", "technical lead"]
+    },
+    {
+      "role_title": "Scrum Master",
+      "terms": ["scrum master"]
+    },
+    {
+      "role_title": "Product Owner",
+      "terms": ["product owner", "produktägare"]
+    },
+    {
+      "role_title": "Business Analyst",
+      "terms": ["business analyst", "kravanalytiker"]
+    },
+    {
+      "role_title": "UX / UI Designer",
+      "terms": ["ux", "ui designer", "designer"]
+    },
+    {
+      "role_title": "Mobile Developer",
+      "terms": ["mobile", "ios", "android", "swift", "kotlin"]
+    }
+  ]
+}

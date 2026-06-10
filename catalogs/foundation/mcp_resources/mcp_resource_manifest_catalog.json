@@ -1,0 +1,70 @@
+{
+  "catalog_id": "mcp_resource_manifest_catalog",
+  "mcp_resource_manifest_catalog_version": "1.0.0",
+  "mcp_resources": [
+    {
+      "resource_key": "tools_catalog",
+      "resource_uri": "resource://tools/catalog",
+      "resource_name": "tools/catalog",
+      "resource_description": "Catalog of all registered MCP tools with their schemas and execution policies.",
+      "resource_dynamic": true,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "marketplace_capabilities",
+      "resource_uri": "resource://marketplace/capabilities",
+      "resource_name": "marketplace/capabilities",
+      "resource_description": "Marketplace capability contract catalog mapped to endpoints, MCP surfaces, React surfaces, and persistence anchors.",
+      "resource_dynamic": false,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "ops_runtime_overview",
+      "resource_uri": "resource://ops/runtime-overview",
+      "resource_name": "ops/runtime-overview",
+      "resource_description": "Operational runtime overview: status, metrics, health checks, and control-plane view.",
+      "resource_dynamic": true,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "consultant_roles",
+      "resource_uri": "resource://catalog/roles",
+      "resource_name": "catalog/roles",
+      "resource_description": "Reference catalog of all 20 consultant job roles, read from marketplace.role.",
+      "resource_dynamic": false,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "skill_levels",
+      "resource_uri": "resource://catalog/skill-levels",
+      "resource_name": "catalog/skill-levels",
+      "resource_description": "Reference catalog of all available skill levels, read from database.",
+      "resource_dynamic": false,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "technical_skills",
+      "resource_uri": "resource://catalog/skills",
+      "resource_name": "catalog/skills",
+      "resource_description": "Reference catalog of all 50 technical skills, including PRIMARY and SECONDARY category.",
+      "resource_dynamic": false,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "recent_audit_entries",
+      "resource_uri": "resource://audit/recent",
+      "resource_name": "audit/recent",
+      "resource_description": "The 25 most recent audit entries, newest first. Passive background context for MCP clients.",
+      "resource_dynamic": true,
+      "resource_group": "canonical_mcp_resources"
+    },
+    {
+      "resource_key": "candidate_presentation_generation_contract",
+      "resource_uri": "resource://candidate-presentation/generation-contract",
+      "resource_name": "candidate-presentation/generation-contract",
+      "resource_description": "Server-owned Candidate Presentation generation contract and guidance context.",
+      "resource_dynamic": false,
+      "resource_group": "canonical_mcp_resources"
+    }
+  ]
+}

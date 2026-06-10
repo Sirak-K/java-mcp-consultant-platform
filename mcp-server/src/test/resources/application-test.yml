@@ -1,0 +1,53 @@
+# ── Test Profile ──────────────────────────────────────────────────────────────
+# Activated by @ActiveProfiles("test") or spring.profiles.active=test.
+# Provides H2 in-memory persistence, schema creation, and disabled external
+# services for automated unit and integration tests.
+#
+# Usage in test classes: @ActiveProfiles("test")
+
+spring:
+  datasource:
+    url: "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false"
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+    show-sql: false
+    properties:
+      hibernate:
+        hbm2ddl:
+          create_namespaces: true
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-init.sql
+
+  flyway:
+    enabled: false
+
+mcp:
+  control-plane:
+    enabled: false
+
+  prompts:
+    strict-slot-collision: true   # fail fast on capability slot conflicts during tests
+
+  observability:
+    file-sink:
+      enabled: false
+    audit-sink:
+      enabled: false
+    test-sink:
+      enabled: true
+      path: logs/mcp-server.log
+
+logging:
+  level:
+    root: WARN
+    mcp.server: INFO

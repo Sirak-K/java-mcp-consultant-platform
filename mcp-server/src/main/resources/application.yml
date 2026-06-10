@@ -1,0 +1,185 @@
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+  max-http-request-header-size: ${SERVER_MAX_HTTP_REQUEST_HEADER_SIZE:32768}
+  tomcat:
+    max-swallow-size: ${SERVER_TOMCAT_MAX_SWALLOW_SIZE:64MB}
+
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:mcp-server}
+
+  servlet:
+    multipart:
+      max-file-size: ${MCP_MULTIPART_MAX_FILE_SIZE:${MCP_CV_MAX_FILE_SIZE:20MB}}
+      max-request-size: ${MCP_MULTIPART_MAX_REQUEST_SIZE:${MCP_CV_MAX_REQUEST_SIZE:40MB}}
+
+  lifecycle:
+    timeout-per-shutdown-phase: ${SPRING_LIFECYCLE_TIMEOUT_PER_SHUTDOWN_PHASE:20s}
+
+  flyway:
+    enabled: ${SPRING_FLYWAY_ENABLED:false}
+    locations: ${SPRING_FLYWAY_LOCATIONS:classpath:db/migration/postgresql}
+    baseline-on-migrate: ${SPRING_FLYWAY_BASELINE_ON_MIGRATE:true}
+    baseline-version: ${SPRING_FLYWAY_BASELINE_VERSION:1}
+    validate-on-migrate: ${SPRING_FLYWAY_VALIDATE_ON_MIGRATE:true}
+
+  datasource:
+    hikari:
+      maximum-pool-size: ${MCP_DB_MAX_POOL_SIZE:10}
+      minimum-idle: ${MCP_DB_MIN_IDLE:2}
+      connection-timeout: ${MCP_DB_CONNECTION_TIMEOUT_MS:30000}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        hbm2ddl:
+          create_namespaces: ${SPRING_JPA_HBM2DDL_CREATE_NAMESPACES:true}
+    open-in-view: false
+
+logging:
+  pattern:
+    dateformat: ${LOG_DATEFORMAT:yyyy-MM-dd | HH:mm:ss.SSS}
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    org.springframework: ${LOG_LEVEL_SPRING:INFO}
+    org.hibernate: ${LOG_LEVEL_HIBERNATE:WARN}
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: ${LOG_LEVEL_HIBERNATE_SQL_EXCEPTION_HELPER:OFF}
+    com.zaxxer.hikari: ${LOG_LEVEL_HIKARI:INFO}
+    mcp.server: ${LOG_LEVEL_MCP_SERVER:INFO}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${MCP_MANAGEMENT_WEB_EXPOSURE_INCLUDE:health,info,prometheus}
+  endpoint:
+    health:
+      show-details: ${MCP_MANAGEMENT_HEALTH_SHOW_DETAILS:never}
+      show-components: ${MCP_MANAGEMENT_HEALTH_SHOW_COMPONENTS:never}
+    prometheus:
+      enabled: ${MCP_OBSERVABILITY_PROMETHEUS_ENABLED:true}
+  prometheus:
+    metrics:
+      export:
+        enabled: ${MCP_OBSERVABILITY_PROMETHEUS_ENABLED:true}
+  tracing:
+    enabled: ${MCP_OBSERVABILITY_TRACING_ENABLED:true}
+    sampling:
+      probability: ${MCP_OBSERVABILITY_TRACING_SAMPLING_PROBABILITY:1.0}
+
+mcp:
+  control-plane:
+    enabled: ${MCP_CONTROL_PLANE_ENABLED:true}
+    audit-path: ${MCP_CONTROL_PLANE_AUDIT_PATH:logs/control-plane/audit-events.jsonl}
+    usage-path: ${MCP_CONTROL_PLANE_USAGE_PATH:logs/control-plane/usage-events.jsonl}
+    analytics-path: ${MCP_CONTROL_PLANE_ANALYTICS_PATH:logs/control-plane/analytics-events.jsonl}
+    policy-config-path: ${MCP_CONTROL_PLANE_POLICY_CONFIG_PATH:logs/control-plane/policy-config-events.jsonl}
+  customer-data:
+    mode: ${MCP_CUSTOMER_DATA_MODE:postgresql}
+    active-flyway-locations: ${MCP_CUSTOMER_DATA_ACTIVE_FLYWAY_LOCATIONS:classpath:db/migration/postgresql}
+    active-schema-validation-mode: ${MCP_CUSTOMER_DATA_ACTIVE_SCHEMA_VALIDATION_MODE:validate}
+  tools:
+    execution:
+      global-max-concurrency: ${MCP_TOOLS_GLOBAL_MAX_CONCURRENCY:32}
+      defaults:
+        timeout-millis: ${MCP_TOOLS_DEFAULT_TIMEOUT_MILLIS:10000}
+        max-concurr: ${MCP_TOOLS_DEFAULT_MAX_CONCURRENCY:32}
+        cancellable: ${MCP_TOOLS_DEFAULT_CANCELLABLE:true}
+        progress-enabled: ${MCP_TOOLS_DEFAULT_PROGRESS_ENABLED:false}
+      overrides:
+        "missionProposal.previewFromText":
+          timeout-millis: 15000
+          max-concurr: 4
+        "matchNotifications.sendEmail":
+          timeout-millis: 30000
+          max-concurr: 2
+  security:
+    network-auth:
+      enabled: ${MCP_SECURITY_NETWORK_AUTH_ENABLED:true}
+      header-name: ${MCP_SECURITY_NETWORK_AUTH_HEADER_NAME:Authorization}
+      scheme: ${MCP_SECURITY_NETWORK_AUTH_SCHEME:Bearer}
+      bearer-token: ${MCP_SECURITY_BEARER_TOKEN:}
+      bearer-token-transition: ${MCP_SECURITY_BEARER_TOKEN_TRANSITION:}
+    rate-limit:
+      enabled: ${MCP_SECURITY_RATE_LIMIT_ENABLED:true}
+      max-requests-per-minute: ${MCP_SECURITY_RATE_LIMIT_MAX_REQUESTS_PER_MINUTE:120}
+  ai:
+    generation:
+      mcp-endpoint-url: ${MCP_AI_GENERATION_MCP_ENDPOINT_URL:http://127.0.0.1:8080/mcp}
+      mcp-transport-kind: ${MCP_AI_GENERATION_MCP_TRANSPORT_KIND:streamable_http}
+      mcp-timeout-seconds: ${MCP_AI_GENERATION_MCP_TIMEOUT_SECONDS:30.0}
+      runtime:
+        base-url: ${MCP_AI_GENERATION_RUNTIME_BASE_URL:http://127.0.0.1:8091}
+        generation-run-path: ${MCP_AI_GENERATION_RUNTIME_RUN_PATH:/candidate-presentation-generation/runs}
+        connect-timeout-millis: ${MCP_AI_GENERATION_RUNTIME_CONNECT_TIMEOUT_MILLIS:1000}
+        request-timeout-millis: ${MCP_AI_GENERATION_RUNTIME_REQUEST_TIMEOUT_MILLIS:5000}
+  match-notifications:
+    delivery:
+      ops-recipient:
+        email: ${MATCH_NOTIFICATION_OPS_RECIPIENT_EMAIL:platform-ops@example.com}
+        name: ${MATCH_NOTIFICATION_OPS_RECIPIENT_NAME:Platform Operator}
+      mock-sender-email: ${MATCH_NOTIFICATION_MOCK_SENDER_EMAIL:match-notifications@local.test}
+  observability:
+    otlp-log-sink:
+      enabled: ${MCP_OBSERVABILITY_OTLP_LOG_EXPORT_ENABLED:false}
+      endpoint: ${MCP_OBSERVABILITY_OTLP_LOG_ENDPOINT:http://localhost:4318/v1/logs}
+      timeout: ${MCP_OBSERVABILITY_OTLP_LOG_TIMEOUT:5s}
+      compression: ${MCP_OBSERVABILITY_OTLP_LOG_COMPRESSION:none}
+    tracing:
+      otlp:
+        enabled: ${MCP_OBSERVABILITY_OTLP_EXPORT_ENABLED:false}
+        endpoint: ${MCP_OBSERVABILITY_OTLP_TRACING_ENDPOINT:http://localhost:4318/v1/traces}
+        timeout: ${MCP_OBSERVABILITY_OTLP_TRACING_TIMEOUT:5s}
+        compression: ${MCP_OBSERVABILITY_OTLP_TRACING_COMPRESSION:none}
+    local-logs:
+      rotation:
+        max-file-size-bytes: ${MCP_LOCAL_LOG_MAX_FILE_SIZE_BYTES:1048576}
+        max-history-files: ${MCP_LOCAL_LOG_MAX_HISTORY_FILES:5}
+    file-sink:
+      enabled: ${MCP_FILE_SINK_ENABLED:true}
+      all-path: ${MCP_FILE_SINK_ALL_PATH:logs/mcp-server.log}
+      error-path: ${MCP_FILE_SINK_ERROR_PATH:logs/mcp-server-errors.log}
+      reset-all-on-start: ${MCP_FILE_SINK_RESET_ALL_ON_START:false}
+    audit-sink:
+      enabled: ${MCP_AUDIT_SINK_ENABLED:true}
+      path: ${MCP_AUDIT_SINK_PATH:logs/mcp-server-audit.log}
+  transport:
+    active: ${MCP_TRANSPORT_ACTIVE:}
+    inbound:
+      max-in-flight: ${MCP_TRANSPORT_INBOUND_MAX_IN_FLIGHT:64}
+    http:
+      async-request-timeout-ms: ${MCP_TRANSPORT_HTTP_ASYNC_REQUEST_TIMEOUT_MS:-1}
+      trusted-edge:
+        required: ${MCP_TRANSPORT_HTTP_TRUSTED_EDGE_REQUIRED:false}
+        require-forwarded-https: ${MCP_TRANSPORT_HTTP_TRUSTED_EDGE_REQUIRE_FORWARDED_HTTPS:false}
+        trusted-proxy-addresses: ${MCP_TRANSPORT_HTTP_TRUSTED_EDGE_TRUSTED_PROXY_ADDRESSES:}
+    websocket:
+      enabled: ${MCP_TRANSPORT_WEBSOCKET_ENABLED:false}
+      path: ${MCP_TRANSPORT_WEBSOCKET_PATH:/ws}
+      allowed-origins: ${MCP_TRANSPORT_WEBSOCKET_ALLOWED_ORIGINS:}
+      max-active-connections: ${MCP_TRANSPORT_WEBSOCKET_MAX_ACTIVE_CONNECTIONS:128}
+    stdio:
+      enabled: ${MCP_TRANSPORT_STDIO_ENABLED:false}
+      stderr-logging-enabled: ${MCP_TRANSPORT_STDIO_STDERR_LOGGING_ENABLED:true}
+    streamable-http:
+      enabled: ${MCP_TRANSPORT_STREAMABLE_HTTP_ENABLED:true}
+      endpoint-path: ${MCP_TRANSPORT_STREAMABLE_HTTP_ENDPOINT_PATH:/mcp}
+      max-request-body-bytes: ${MCP_TRANSPORT_STREAMABLE_HTTP_MAX_REQUEST_BODY_BYTES:1048576}
+      require-origin-validation: ${MCP_TRANSPORT_STREAMABLE_HTTP_REQUIRE_ORIGIN_VALIDATION:true}
+      localhost-only: ${MCP_TRANSPORT_STREAMABLE_HTTP_LOCALHOST_ONLY:true}
+      allowed-origins: ${MCP_TRANSPORT_STREAMABLE_HTTP_ALLOWED_ORIGINS:}
+      allowed-hosts: ${MCP_TRANSPORT_STREAMABLE_HTTP_ALLOWED_HOSTS:}
+      allow-session-delete: ${MCP_TRANSPORT_STREAMABLE_HTTP_ALLOW_SESSION_DELETE:true}
+      require-protocol-version-header-after-init: ${MCP_TRANSPORT_STREAMABLE_HTTP_REQUIRE_PROTOCOL_VERSION_HEADER_AFTER_INIT:true}
+      max-active-sessions: ${MCP_TRANSPORT_STREAMABLE_HTTP_MAX_ACTIVE_SESSIONS:128}
+      max-active-streams: ${MCP_TRANSPORT_STREAMABLE_HTTP_MAX_ACTIVE_STREAMS:128}
+      max-buffered-outbound-messages-per-session: ${MCP_TRANSPORT_STREAMABLE_HTTP_MAX_BUFFERED_OUTBOUND_MESSAGES_PER_SESSION:64}
+      post-response-timeout-millis: ${MCP_TRANSPORT_STREAMABLE_HTTP_POST_RESPONSE_TIMEOUT_MILLIS:10000}
+
+audit:
+  retention-days: ${AUDIT_RETENTION_DAYS:5}

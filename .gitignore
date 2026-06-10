@@ -1,0 +1,16 @@
+# Local
+scripts_and_wrappers/
+docs/*/
+
+# Artifacts - Backend
+mcp-server/target/
+logs/
+
+# Artifacts - Frontend
+web-app/node_modules/
+web-app/.react-router/
+web-app/build/
+
+# Local environment and editor state
+.env
+.vscode/

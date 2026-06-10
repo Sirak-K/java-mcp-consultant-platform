@@ -1,0 +1,36 @@
+{
+  "catalog_id": "match_notification_email_template_catalog",
+  "match_notification_email_template_catalog_version": "1.0.0",
+  "mail_subject": "New candidate match available",
+  "html_signal_banner": "Consultant Match Ops - Match Notification",
+  "section_titles": {
+    "new_match_details": "New Match Details",
+    "matched_candidate_profile_details": "Matched Candidate Profile Details",
+    "matched_mission_slot_details": "Matched Mission Slot Details"
+  },
+  "field_labels": {
+    "match_grade": "Match Grade",
+    "candidate_name": "Candidate Name",
+    "matched_roles": "Matched Roles",
+    "matched_skills": "Matched Skills",
+    "customer_name": "Customer Name",
+    "mission": "Mission",
+    "mission_slot_role": "Mission Slot Role",
+    "mission_slot": "Mission Slot"
+  },
+  "footer": {
+    "ops_review_signal_label": "Internal OPS review signal only",
+    "no_contact_notice": "No customer or candidate has been contacted."
+  },
+  "match_summary_templates": {
+    "multi_slot_match_grade": "Multi-slot match ({count} slots; best {bestMatchGrade})",
+    "no_matched_skills": "No matched skills recorded"
+  },
+  "evidence_brief_templates": {
+    "skill_evidence_no_matched_skills": "No matched skills are recorded, so OPS should verify the skill evidence before any outreach.",
+    "skill_evidence_matched_skills": "Matched skill evidence: {matchedSkills}.",
+    "fit_evidence_aligned": "Role fit and work mode are both aligned.",
+    "fit_evidence_review_required": "OPS should review the role and work mode evidence before taking action.",
+    "evidence_brief": "{candidateName} should be reviewed for {roleTitle} on {missionTitle}. {fitEvidence} {skillEvidence}"
+  }
+}

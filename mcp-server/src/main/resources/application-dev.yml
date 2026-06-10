@@ -1,0 +1,37 @@
+spring:
+  flyway:
+    enabled: true
+
+  datasource:
+    url: ${MCP_DB_DEV_URL:jdbc:postgresql://localhost:5432/db_mcp}
+    username: ${MCP_DB_DEV_USERNAME:postgres}
+    password: ${MCP_DB_DEV_PASSWORD}
+
+mcp:
+  app:
+    dev-auth:
+      allowed-origin: ${MCP_APP_DEV_AUTH_ALLOWED_ORIGIN:http://localhost:5173}
+      ops:
+        email: ${MCP_APP_DEV_AUTH_OPS_EMAIL:ops@example.test}
+        password: ${MCP_APP_DEV_AUTH_OPS_PASSWORD}
+      ops-bypass:
+        enabled: ${MCP_APP_DEV_AUTH_OPS_BYPASS_ENABLED:true}
+  security:
+    network-auth:
+      enabled: ${MCP_SECURITY_NETWORK_AUTH_ENABLED:false}
+  control-plane:
+    enabled: ${MCP_CONTROL_PLANE_ENABLED:true}
+  customer-data:
+    mode: ${MCP_CUSTOMER_DATA_MODE:postgresql}
+  transport:
+    active: ${MCP_TRANSPORT_ACTIVE:streamable-http}
+  observability:
+    file-sink:
+      reset-all-on-start: ${MCP_FILE_SINK_RESET_ALL_ON_START:true}
+    tracing:
+      otlp:
+        enabled: ${MCP_OBSERVABILITY_OTLP_EXPORT_ENABLED:false}
+
+logging:
+  level:
+    mcp.server: INFO
