@@ -18,12 +18,12 @@ final class CandidateCvRoleTextDetector {
       .compile("(?iu)studerar\\s+till\\s+([^\\n]+?)\\s+p\\u00E5\\s");
 
   private final RoleJpaRepo roleRepo;
-  private final CandidateProfileTextDetectionCatalogService textDetectionCatalogService;
+  private final CandidateCvExtractionCatalogService textDetectionCatalogService;
   private final CandidateCvTextMatcher textMatcher;
 
   CandidateCvRoleTextDetector(
       RoleJpaRepo roleRepo,
-      CandidateProfileTextDetectionCatalogService textDetectionCatalogService,
+      CandidateCvExtractionCatalogService textDetectionCatalogService,
       CandidateCvTextMatcher textMatcher) {
     this.roleRepo = roleRepo;
     this.textDetectionCatalogService = textDetectionCatalogService;

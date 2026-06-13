@@ -13,8 +13,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService.CandidatePresentationEvidenceTraceFieldSpec;
-import mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService.CandidatePresentationSectionSpec;
 import mcp.server.domain.candidate_presentation.exception.CandidatePresentationException;
 
 @Service
@@ -76,18 +74,7 @@ public class CandidatePresentationGenerationContractService {
   }
 
   public Map<String, Object> generationOutputJsonSchema() {
-    LinkedHashMap<String, Object> properties = new LinkedHashMap<>();
-    properties.put("presentationTitle", textSectionSchema(
-        catalogService.contractFieldDescription("presentationTitle"),
-        140));
-    properties.put("customerFacingContent", sectionObjectSchema(
-        catalogService.contractFieldDescription("customerFacingContent"),
-        catalogService.customerFacingSectionSpecs()));
-    properties.put("opsReviewContent", sectionObjectSchema(
-        catalogService.contractFieldDescription("opsReviewContent"),
-        catalogService.opsReviewSectionSpecs()));
-    properties.put("evidenceTrace", evidenceTraceSchema());
-    return closedObjectSchema(properties, catalogService.generationOutputRequiredFields());
+    return catalogService.generationOutputJsonSchemaPayload();
   }
 
   public void validateGeneratedContentJson(
@@ -106,61 +93,6 @@ public class CandidatePresentationGenerationContractService {
         false);
     validateEvidenceTrace(
         parseJson(evidenceTraceJson, "evidenceTraceJson"));
-  }
-
-  private Map<String, Object> evidenceTraceSchema() {
-    LinkedHashMap<String, Object> properties = new LinkedHashMap<>();
-    List<CandidatePresentationEvidenceTraceFieldSpec> evidenceTraceFields = catalogService.evidenceTraceFieldSpecs();
-    for (CandidatePresentationEvidenceTraceFieldSpec field : evidenceTraceFields) {
-      properties.put(field.key(), textSectionSchema(field.description(), 180));
-    }
-    LinkedHashMap<String, Object> schema = new LinkedHashMap<>();
-    schema.put("type", "array");
-    schema.put("minItems", 1);
-    schema.put("maxItems", 12);
-    schema.put("description", catalogService.contractFieldDescription("evidenceTrace"));
-    schema.put(
-        "items",
-        closedObjectSchema(
-            properties,
-            evidenceTraceFields.stream()
-                .map(CandidatePresentationEvidenceTraceFieldSpec::key)
-                .toList()));
-    return schema;
-  }
-
-  private static Map<String, Object> sectionObjectSchema(
-      String description,
-      List<CandidatePresentationSectionSpec> sectionSpecs) {
-    LinkedHashMap<String, Object> properties = new LinkedHashMap<>();
-    for (CandidatePresentationSectionSpec sectionSpec : sectionSpecs) {
-      properties.put(
-          sectionSpec.key(),
-          textSectionSchema(sectionSpec.description(), sectionSpec.maxLength()));
-    }
-    LinkedHashMap<String, Object> schema = new LinkedHashMap<>();
-    schema.put("type", "object");
-    schema.put("description", description);
-    schema.put("properties", properties);
-    schema.put(
-        "required",
-        sectionSpecs.stream()
-            .filter(CandidatePresentationSectionSpec::required)
-            .map(CandidatePresentationSectionSpec::key)
-            .toList());
-    schema.put("additionalProperties", false);
-    return schema;
-  }
-
-  private static Map<String, Object> textSectionSchema(String description, int maxLength) {
-    LinkedHashMap<String, Object> schema = new LinkedHashMap<>();
-    schema.put("type", "string");
-    schema.put("minLength", 1);
-    schema.put("maxLength", maxLength);
-    if (description != null && !description.isBlank()) {
-      schema.put("description", description);
-    }
-    return schema;
   }
 
   private static Map<String, Object> stringSchema(String description) {

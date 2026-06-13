@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "mission_proposal", schema = "marketplace", indexes = {
+@Table(name = "mission_proposal", schema = "consultant_platform", indexes = {
         @Index(name = "idx_mission_proposal_status", columnList = "mission_proposal_review_status"),
         @Index(name = "idx_mission_proposal_created_at", columnList = "created_at")
 })

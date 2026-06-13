@@ -6,7 +6,6 @@ import java.util.Objects;
 import mcp.server.foundation.security.request_binding.ReqsAuthBinding;
 import mcp.server.foundation.server_process.client_context.session.id.McpSessId;
 import mcp.server.foundation.server_process.orchestration.OperatingSurface;
-import mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService;
 import mcp.server.foundation.server_process.orchestration.RTMcpSessLifecyContract;
 import mcp.server.foundation.server_process.orchestration.RTMcpSessModelReg;
 import mcp.server.foundation.server_process.orchestration.RTMcpSessPhase;
@@ -128,8 +127,6 @@ public final class McpSessRTMetaFactory {
   }
 
   private static RTMcpSessModelReg McpSessRTMetaFactoryDefaultRegistry() {
-    return RTMcpSessModelReg.RTMcpSessModelRegDefault(
-        DEFAULT_INACTIVITY_TTL_SECONDS,
-        RuntimeContractDescriptionCatalogService.defaultCatalogService());
+    return RTMcpSessModelReg.RTMcpSessModelRegDefault(DEFAULT_INACTIVITY_TTL_SECONDS);
   }
 }

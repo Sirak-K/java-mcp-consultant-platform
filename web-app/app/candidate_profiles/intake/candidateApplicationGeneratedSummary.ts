@@ -11,7 +11,7 @@ import {
   type CandidateWorkExperienceFormFields,
 } from "~/candidate_profiles/intake/candidateApplicationIntakeState";
 import { formatCompetencyLevelLabel } from "~/reference_data/competencyLevels";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 import { formatWorkMode } from "~/reference_data/workMode";
 
 type CandidateApplicationSummaryInput = {
@@ -21,7 +21,7 @@ type CandidateApplicationSummaryInput = {
   workExperiences: CandidateWorkExperienceFormFields[];
   educations: CandidateEducationFormFields[];
   certifications: CandidateCertificationFormFields[];
-  referenceData: MarketplaceReferenceData | null;
+  referenceData: ReferenceData | null;
 };
 
 export function stripCandidateCompetencyYearThresholds(value: string) {
@@ -109,14 +109,14 @@ export function buildCandidateApplicationGeneratedSummary({
 }
 
 function displayRoleTitle(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
   roleId: number,
 ) {
   return referenceData?.roles.find((role) => role.id === roleId)?.title ?? "";
 }
 
 function displaySkillTitle(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
   skillId: number,
   skillCategory: "PRIMARY" | "SECONDARY",
 ) {
@@ -128,7 +128,7 @@ function displaySkillTitle(
 }
 
 function displaySkillLevel(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
   skillLevelId: number,
 ) {
   const levelName = referenceData?.skillLevels.find(
@@ -138,7 +138,7 @@ function displaySkillLevel(
 }
 
 function displaySummarySkillLevel(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
   skillLevelId: number,
 ) {
   return stripCandidateCompetencyYearThresholds(

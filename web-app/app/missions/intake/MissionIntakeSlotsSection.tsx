@@ -7,13 +7,13 @@ import type {
   MissionSlotInput,
   MissionSkillRequirementInput,
 } from "~/missions/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 type PreviewFieldClass = (...fieldPaths: string[]) => string;
 
 type MissionIntakeSlotsSectionProps = {
   form: MissionProposalInput;
-  referenceData: MarketplaceReferenceData | null;
+  referenceData: ReferenceData | null;
   loadingReferences: boolean;
   previewFieldClass: PreviewFieldClass;
   updateMissionSlot: <K extends keyof MissionSlotInput>(

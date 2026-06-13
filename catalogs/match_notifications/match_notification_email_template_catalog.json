@@ -2,7 +2,7 @@
   "catalog_id": "match_notification_email_template_catalog",
   "match_notification_email_template_catalog_version": "1.0.0",
   "mail_subject": "New candidate match available",
-  "html_signal_banner": "Consultant Match Ops - Match Notification",
+  "html_signal_banner": "Consultant To Mission Match Notification",
   "section_titles": {
     "new_match_details": "New Match Details",
     "matched_candidate_profile_details": "Matched Candidate Profile Details",

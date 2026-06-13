@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "mission_proposal_slot", schema = "marketplace", uniqueConstraints = {
+@Table(name = "mission_proposal_slot", schema = "consultant_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = { "mission_proposal_id", "mission_slot_number" })
 }, indexes = {
         @Index(name = "idx_mission_proposal_slot_proposal_id", columnList = "mission_proposal_id"),

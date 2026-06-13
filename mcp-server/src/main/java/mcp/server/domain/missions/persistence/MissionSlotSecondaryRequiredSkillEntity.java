@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "mission_slot_secondary_required_skill", schema = "marketplace", uniqueConstraints = {
+@Table(name = "mission_slot_secondary_required_skill", schema = "consultant_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = { "mission_slot_id", "secondary_skill_id" })
 })
 public class MissionSlotSecondaryRequiredSkillEntity {

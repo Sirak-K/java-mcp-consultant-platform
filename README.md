@@ -1,6 +1,6 @@
 # Java MCP Consultant Platform
 
-A Java/Spring Boot project for consultant marketplace workflows. The backend is a Model Context Protocol (MCP) server, and the frontend is a React-based UI for domain-specific and user-initiated operations.
+A Java/Spring Boot project for consultant-platform workflows. The backend is a Model Context Protocol (MCP) server, and the frontend is a React-based UI for domain-specific and user-initiated operations.
 
 Swedish version: [README_sv.md](README_sv.md)
 

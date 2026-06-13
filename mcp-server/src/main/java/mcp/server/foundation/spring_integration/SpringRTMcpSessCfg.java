@@ -1,7 +1,6 @@
 package mcp.server.foundation.spring_integration;
 
 import mcp.server.foundation.server_process.client_context.session.metadata.McpSessRTMetaFactory;
-import mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService;
 import mcp.server.foundation.server_process.orchestration.RTMcpSessModelReg;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -15,12 +14,10 @@ public class SpringRTMcpSessCfg {
 
   @Bean
   public RTMcpSessModelReg runtimeSessionModelRegistry(
-      RuntimeContractDescriptionCatalogService descriptionCatalog,
       @Value("${mcp.runtime.session.default-inactivity-ttl-seconds:1800}") long inactivityTtlSeconds) {
 
     return RTMcpSessModelReg.RTMcpSessModelRegDefault(
-        requirePositiveInactivityTtlSeconds(inactivityTtlSeconds),
-        Objects.requireNonNull(descriptionCatalog, "descriptionCatalog"));
+        requirePositiveInactivityTtlSeconds(inactivityTtlSeconds));
   }
 
   @Bean

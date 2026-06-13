@@ -15,6 +15,7 @@ import mcp.server.foundation.support.catalog.ProjectCatalogJsonLoader;
 import org.springframework.stereotype.Service;
 
 import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.array;
+import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.object;
 import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.optionalText;
 import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.requireCatalogId;
 import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.requiredText;
@@ -26,50 +27,75 @@ public final class CandidatePresentationGenerationCatalogService {
   private static final Path CANDIDATE_PRESENTATION_GENERATION_CATALOG_DIR = Path.of(
       "candidate_presentation",
       "generation");
-  private static final String GENERATION_GUIDANCE_CATALOG = "candidate_presentation_generation_guidance_catalog.json";
-  private static final String SECTION_SEMANTICS_CATALOG = "candidate_presentation_section_semantics_catalog.json";
-  private static final String GENERATION_CONTRACT_DESCRIPTION_CATALOG = "candidate_presentation_generation_contract_description_catalog.json";
-  private static final String GENERATION_GUIDANCE_CATALOG_ID = "candidate_presentation_generation_guidance_catalog";
-  private static final String SECTION_SEMANTICS_CATALOG_ID = "candidate_presentation_section_semantics_catalog";
-  private static final String GENERATION_CONTRACT_DESCRIPTION_CATALOG_ID =
-      "candidate_presentation_generation_contract_description_catalog";
+  private static final String GENERATION_CONTENT_STRUCTURE_CATALOG = "generation_content_structure.json";
+  private static final String GENERATION_CONTENT_CONSTRAINTS_CATALOG = "generation_content_constraints.json";
+  private static final String GENERATION_POLICY_CATALOG = "generation_policy.json";
+  private static final String GENERATION_EVIDENCE_TRACES_CATALOG = "generation_evidence_traces.json";
+  private static final String GENERATION_OUTPUT_CONTRACT_SCHEMA_CATALOG = "generation_output_contract.schema.json";
+  private static final String GENERATION_CONTENT_STRUCTURE_CATALOG_ID = "generation_content_structure";
+  private static final String GENERATION_CONTENT_CONSTRAINTS_CATALOG_ID = "generation_content_constraints";
+  private static final String GENERATION_POLICY_CATALOG_ID = "generation_policy";
+  private static final String GENERATION_EVIDENCE_TRACES_CATALOG_ID = "generation_evidence_traces";
+  private static final String GENERATION_OUTPUT_CONTRACT_SCHEMA_CATALOG_ID = "generation_output_contract_schema";
   private static final String CATALOG_LABEL = "Candidate Presentation generation catalog";
 
   private final ObjectMapper objectMapper;
   private final ProjectCatalogJsonLoader catalogJsonLoader;
-  private final JsonNode generationGuidanceCatalog;
-  private final JsonNode sectionSemanticsCatalog;
-  private final JsonNode generationContractDescriptionCatalog;
+  private final JsonNode generationContentStructureCatalog;
+  private final JsonNode generationContentConstraintsCatalog;
+  private final JsonNode generationPolicyCatalog;
+  private final JsonNode generationEvidenceTracesCatalog;
+  private final JsonNode generationOutputContractSchemaCatalog;
 
   public CandidatePresentationGenerationCatalogService(
       ObjectMapper objectMapper,
       ProjectCatalogJsonLoader catalogJsonLoader) {
     this.objectMapper = Objects.requireNonNull(objectMapper, "objectMapper");
     this.catalogJsonLoader = Objects.requireNonNull(catalogJsonLoader, "catalogJsonLoader");
-    this.generationGuidanceCatalog = readCatalog(
-        GENERATION_GUIDANCE_CATALOG,
-        GENERATION_GUIDANCE_CATALOG_ID,
-        "candidate_presentation_generation_guidance_catalog_version");
-    this.sectionSemanticsCatalog = readCatalog(
-        SECTION_SEMANTICS_CATALOG,
-        SECTION_SEMANTICS_CATALOG_ID,
-        "candidate_presentation_section_semantics_catalog_version");
-    this.generationContractDescriptionCatalog = readCatalog(
-        GENERATION_CONTRACT_DESCRIPTION_CATALOG,
-        GENERATION_CONTRACT_DESCRIPTION_CATALOG_ID,
-        "candidate_presentation_generation_contract_description_catalog_version");
+    this.generationContentStructureCatalog = readCatalog(
+        GENERATION_CONTENT_STRUCTURE_CATALOG,
+        GENERATION_CONTENT_STRUCTURE_CATALOG_ID,
+        "generation_content_structure_version");
+    this.generationContentConstraintsCatalog = readCatalog(
+        GENERATION_CONTENT_CONSTRAINTS_CATALOG,
+        GENERATION_CONTENT_CONSTRAINTS_CATALOG_ID,
+        "generation_content_constraints_version");
+    this.generationPolicyCatalog = readCatalog(
+        GENERATION_POLICY_CATALOG,
+        GENERATION_POLICY_CATALOG_ID,
+        "generation_policy_version");
+    this.generationEvidenceTracesCatalog = readCatalog(
+        GENERATION_EVIDENCE_TRACES_CATALOG,
+        GENERATION_EVIDENCE_TRACES_CATALOG_ID,
+        "generation_evidence_traces_version");
+    this.generationOutputContractSchemaCatalog = readCatalog(
+        GENERATION_OUTPUT_CONTRACT_SCHEMA_CATALOG,
+        GENERATION_OUTPUT_CONTRACT_SCHEMA_CATALOG_ID,
+        "generation_output_contract_schema_version");
   }
 
-  public Map<String, Object> generationGuidancePayload() {
-    return objectMap(generationGuidanceCatalog);
+  public Map<String, Object> generationContentStructurePayload() {
+    return objectMap(generationContentStructureCatalog);
   }
 
-  public Map<String, Object> sectionSemanticsPayload() {
-    return objectMap(sectionSemanticsCatalog);
+  public Map<String, Object> generationContentConstraintsPayload() {
+    return objectMap(generationContentConstraintsCatalog);
   }
 
-  public Map<String, Object> generationContractDescriptionPayload() {
-    return objectMap(generationContractDescriptionCatalog);
+  public Map<String, Object> generationPolicyPayload() {
+    return objectMap(generationPolicyCatalog);
+  }
+
+  public Map<String, Object> generationEvidenceTracesPayload() {
+    return objectMap(generationEvidenceTracesCatalog);
+  }
+
+  public Map<String, Object> generationOutputContractSchemaPayload() {
+    return objectMap(generationOutputContractSchemaCatalog);
+  }
+
+  public Map<String, Object> generationOutputJsonSchemaPayload() {
+    return objectMap(object(generationOutputContractSchemaCatalog, CATALOG_LABEL, "json_schema"));
   }
 
   public List<CandidatePresentationSectionSpec> customerFacingSectionSpecs() {
@@ -122,7 +148,7 @@ public final class CandidatePresentationGenerationCatalogService {
 
   public List<CandidatePresentationEvidenceTraceFieldSpec> evidenceTraceFieldSpecs() {
     List<CandidatePresentationEvidenceTraceFieldSpec> fieldSpecs = array(
-        sectionSemantics(),
+        generationEvidenceTracesCatalog,
         CATALOG_LABEL,
         "evidence_trace_fields").stream()
         .map(field -> new CandidatePresentationEvidenceTraceFieldSpec(
@@ -146,7 +172,7 @@ public final class CandidatePresentationGenerationCatalogService {
 
   public List<CandidatePresentationContractFieldSpec> contractTopLevelFields() {
     List<CandidatePresentationContractFieldSpec> fieldSpecs = array(
-        generationContractDescriptions(),
+        generationOutputContractSchemaCatalog,
         CATALOG_LABEL,
         "top_level_fields").stream()
         .map(field -> new CandidatePresentationContractFieldSpec(
@@ -163,11 +189,11 @@ public final class CandidatePresentationGenerationCatalogService {
   }
 
   public String contractName() {
-    return requiredText(generationContractDescriptions(), CATALOG_LABEL, "contract_name");
+    return requiredText(generationOutputContractSchemaCatalog, CATALOG_LABEL, "contract_name");
   }
 
   public String responseFormatType() {
-    return requiredText(generationContractDescriptions(), CATALOG_LABEL, "response_format_type");
+    return requiredText(generationOutputContractSchemaCatalog, CATALOG_LABEL, "response_format_type");
   }
 
   public String contractFieldDescription(String fieldKey) {
@@ -179,14 +205,17 @@ public final class CandidatePresentationGenerationCatalogService {
   }
 
   public Map<String, Object> canonicalGenerationContextPayload() {
-    return Map.of(
-        "generationGuidance", generationGuidancePayload(),
-        "sectionSemantics", sectionSemanticsPayload(),
-        "generationContractDescriptions", generationContractDescriptionPayload());
+    LinkedHashMap<String, Object> payload = new LinkedHashMap<>();
+    payload.put("generationPolicy", generationPolicyPayload());
+    payload.put("generationContentStructure", generationContentStructurePayload());
+    payload.put("generationContentConstraints", generationContentConstraintsPayload());
+    payload.put("generationEvidenceTraces", generationEvidenceTracesPayload());
+    payload.put("generationOutputContractSchema", generationOutputContractSchemaPayload());
+    return java.util.Collections.unmodifiableMap(payload);
   }
 
   private List<CandidatePresentationSectionSpec> sectionSpecs(String fieldName) {
-    List<CandidatePresentationSectionSpec> specs = array(sectionSemantics(), CATALOG_LABEL, fieldName).stream()
+    List<CandidatePresentationSectionSpec> specs = array(generationContentStructureCatalog, CATALOG_LABEL, fieldName).stream()
         .map(section -> new CandidatePresentationSectionSpec(
             requiredText(section, CATALOG_LABEL, "section_key"),
             requiredText(section, CATALOG_LABEL, "section_title"),
@@ -209,19 +238,11 @@ public final class CandidatePresentationGenerationCatalogService {
   }
 
   private List<String> stringList(String fieldName) {
-    return array(sectionSemantics(), CATALOG_LABEL, fieldName).stream()
+    return array(generationContentConstraintsCatalog, CATALOG_LABEL, fieldName).stream()
         .map(JsonNode::asText)
         .map(String::trim)
         .filter(value -> !value.isBlank())
         .toList();
-  }
-
-  private JsonNode sectionSemantics() {
-    return sectionSemanticsCatalog.path("candidate_presentation_section_semantics");
-  }
-
-  private JsonNode generationContractDescriptions() {
-    return generationContractDescriptionCatalog.path("candidate_presentation_generation_contract_descriptions");
   }
 
   private JsonNode readCatalog(String fileName, String expectedCatalogId, String versionKey) {

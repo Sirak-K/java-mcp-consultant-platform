@@ -13,12 +13,12 @@ import type {
   CandidateWorkExperienceWorkingCopyInput,
   CandidateCvProfileWorkingCopyInput,
 } from "~/candidate_profiles/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 type RegisteredCandidateProfileEditFormProps = {
   editWorkingCopy: unknown;
   updateEditWorkingCopy: (updater: (current: unknown) => unknown) => void;
-  referenceData: MarketplaceReferenceData | null;
+  referenceData: ReferenceData | null;
 };
 
 export function RegisteredCandidateProfileEditForm({

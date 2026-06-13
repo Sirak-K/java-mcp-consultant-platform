@@ -1,0 +1,24 @@
+{
+  "catalog_id": "generation_content_constraints",
+  "generation_content_constraints_version": "1.0.0",
+  "customer_facing_disallowed_runtime_terms": [
+    "ON_PREMISE",
+    "ON_SITE",
+    "REMOTE",
+    "HYBRID"
+  ],
+  "customer_facing_disallowed_text_fragments": [
+    "\u00c3",
+    "\u00c2",
+    "\u00e2\u20ac",
+    "\u00e6\u0160",
+    "\u00e8\u0192",
+    "\ufffd"
+  ],
+  "customer_facing_disallowed_unicode_scripts": [
+    "HAN",
+    "HIRAGANA",
+    "KATAKANA",
+    "HANGUL"
+  ]
+}

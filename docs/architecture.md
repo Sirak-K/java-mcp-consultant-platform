@@ -15,7 +15,7 @@ This project is a Java/Spring Boot backend with a React operations UI and a mani
 
 The backend is split into `domain/` and `foundation/`.
 
-`domain/` owns marketplace-specific behavior and language:
+`domain/` owns consultant-platform-specific behavior and language:
 
 - `customers` - customer records used by mission intake.
 - `missions` - mission proposals, mission slots and review workflows.

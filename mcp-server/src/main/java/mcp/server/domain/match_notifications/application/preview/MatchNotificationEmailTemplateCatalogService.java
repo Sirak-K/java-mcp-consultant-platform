@@ -18,7 +18,6 @@ public final class MatchNotificationEmailTemplateCatalogService {
 
   private static final Path MATCH_NOTIFICATION_EMAIL_TEMPLATE_CATALOG_PATH = Path.of(
       "match_notifications",
-      "email_templates",
       "match_notification_email_template_catalog.json");
   private static final String CATALOG_LABEL = "Match notification email template catalog";
   private static final String EXPECTED_CATALOG_ID = "match_notification_email_template_catalog";

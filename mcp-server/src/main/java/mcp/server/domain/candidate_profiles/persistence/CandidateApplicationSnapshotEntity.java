@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 
 @Entity
-@Table(name = "cand_appli", schema = "marketplace", indexes = {
+@Table(name = "cand_appli", schema = "consultant_platform", indexes = {
         @Index(name = "idx_cand_appli_created_at", columnList = "created_at")
 })
 public class CandidateApplicationSnapshotEntity {

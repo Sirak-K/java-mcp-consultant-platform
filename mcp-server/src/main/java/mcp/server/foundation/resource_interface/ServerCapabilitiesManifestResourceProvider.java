@@ -1,6 +1,7 @@
 package mcp.server.foundation.resource_interface;
 
-import mcp.server.foundation.resource_interface.MarketplaceCapabilityCatalog.MarketplaceCapability;
+import mcp.server.foundation.resource_interface.ServerCapabilityCatalog.ServerCapability;
+import mcp.server.foundation.prompt_interface.PromptReg;
 import mcp.server.foundation.rpc.RPCCapaDscr;
 import mcp.server.foundation.tool_interface.ToolReg;
 
@@ -13,38 +14,50 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * MCP resource exposing the marketplace capability contract catalog.
+ * MCP resource exposing the server capability contract catalog.
  */
-public final class MarketplaceCapabilityCatalogResourceProvider implements ResrcProvid {
+public final class ServerCapabilitiesManifestResourceProvider implements ResrcProvid {
 
     private final String resourceUri;
     private final String resourceName;
     private final ResrcReg resourceReg;
     private final ToolReg toolReg;
-    private final MarketplaceCapabilityCatalogService marketplaceCapabilityCatalogService;
+    private final PromptReg promptReg;
+    private final McpToolCatalogService toolCatalogService;
+    private final McpPromptCatalogService promptCatalogService;
+    private final ServerCapabilitiesManifestService serverCapabilitiesManifestService;
 
-    public MarketplaceCapabilityCatalogResourceProvider(
+    public ServerCapabilitiesManifestResourceProvider(
             String resourceUri,
             String resourceName,
             ResrcReg resourceReg,
             ToolReg toolReg,
-            MarketplaceCapabilityCatalogService marketplaceCapabilityCatalogService) {
+            PromptReg promptReg,
+            McpToolCatalogService toolCatalogService,
+            McpPromptCatalogService promptCatalogService,
+            ServerCapabilitiesManifestService serverCapabilitiesManifestService) {
         this.resourceUri = Objects.requireNonNull(resourceUri, "resourceUri");
         this.resourceName = Objects.requireNonNull(resourceName, "resourceName");
         this.resourceReg = Objects.requireNonNull(resourceReg, "resourceReg");
         this.toolReg = Objects.requireNonNull(toolReg, "toolReg");
-        this.marketplaceCapabilityCatalogService = Objects.requireNonNull(
-                marketplaceCapabilityCatalogService,
-                "marketplaceCapabilityCatalogService");
+        this.promptReg = Objects.requireNonNull(promptReg, "promptReg");
+        this.toolCatalogService = Objects.requireNonNull(toolCatalogService, "toolCatalogService");
+        this.promptCatalogService = Objects.requireNonNull(promptCatalogService, "promptCatalogService");
+        this.serverCapabilitiesManifestService = Objects.requireNonNull(
+                serverCapabilitiesManifestService,
+                "serverCapabilitiesManifestService");
     }
 
     @Override
     public Map<String, Object> ResourceProvRead() {
         Map<String, Map<String, Object>> resourcesByUri = resourcesByUri();
-        List<MarketplaceCapability> marketplaceCapabilities = marketplaceCapabilityCatalogService.listCapabilities();
-        validateMcpTools(marketplaceCapabilities);
-        validateMcpResources(marketplaceCapabilities, resourcesByUri);
-        List<Map<String, Object>> capabilities = marketplaceCapabilities.stream()
+        List<ServerCapability> serverCapabilities = serverCapabilitiesManifestService.listServerCapabilities();
+        toolCatalogService.validateRegisteredTools(toolReg);
+        promptCatalogService.validateRegisteredPrompts(promptReg);
+        validateMcpTools(serverCapabilities);
+        validateMcpResources(serverCapabilities, resourcesByUri);
+        validateMcpPrompts(serverCapabilities);
+        List<Map<String, Object>> capabilities = serverCapabilities.stream()
                 .map(capability -> capabilityEntry(capability, resourcesByUri))
                 .toList();
 
@@ -61,7 +74,7 @@ public final class MarketplaceCapabilityCatalogResourceProvider implements Resrc
     }
 
     private Map<String, Object> capabilityEntry(
-            MarketplaceCapability capability,
+            ServerCapability capability,
             Map<String, Map<String, Object>> resourcesByUri) {
 
         McpResourceResolution resourceResolution = resolveMcpResources(capability, resourcesByUri);
@@ -73,6 +86,7 @@ public final class MarketplaceCapabilityCatalogResourceProvider implements Resrc
         entry.put("backendEndpoints", capability.backendEndpoints());
         entry.put("mcpTools", capability.mcpTools());
         entry.put("mcpResources", capability.mcpResources());
+        entry.put("mcpPrompts", capability.mcpPrompts());
         entry.put("mcpSurfaces", capability.mcpSurfaces());
         entry.put("registeredResourceCount", resourceResolution.registeredResourceCount());
         entry.put("resources", resourceResolution.resources());
@@ -80,6 +94,22 @@ public final class MarketplaceCapabilityCatalogResourceProvider implements Resrc
         entry.put("reactSurfaces", capability.reactSurfaces());
         entry.put("persistenceAnchors", capability.persistenceAnchors());
         return Map.copyOf(entry);
+    }
+
+    private void validateMcpPrompts(List<ServerCapability> capabilities) {
+        Set<String> registeredPromptNames = promptReg.PromptRegListDefinitions().stream()
+                .map(prompt -> prompt.PromptDefGetName())
+                .collect(Collectors.toCollection(LinkedHashSet::new));
+        promptCatalogService.validatePromptReferences(registeredPromptNames);
+        List<String> missingPromptNames = capabilities.stream()
+                .flatMap(capability -> capability.mcpPrompts().stream())
+                .filter(promptName -> !registeredPromptNames.contains(promptName))
+                .distinct()
+                .toList();
+        if (!missingPromptNames.isEmpty()) {
+            throw new IllegalStateException("Server capability manifest references unregistered MCP prompts: "
+                    + missingPromptNames);
+        }
     }
 
     private Map<String, Object> runtimePosture() {
@@ -94,21 +124,22 @@ public final class MarketplaceCapabilityCatalogResourceProvider implements Resrc
                 "structuredToolOutput", true);
     }
 
-    private void validateMcpTools(List<MarketplaceCapability> capabilities) {
+    private void validateMcpTools(List<ServerCapability> capabilities) {
         Set<String> registeredToolNames = toolReg.ToolRegListNames();
+        toolCatalogService.validateToolReferences(registeredToolNames);
         List<String> missingToolNames = capabilities.stream()
                 .flatMap(capability -> capability.mcpTools().stream())
                 .filter(toolName -> !registeredToolNames.contains(toolName))
                 .distinct()
                 .toList();
         if (!missingToolNames.isEmpty()) {
-            throw new IllegalStateException("Marketplace capability catalog references unregistered MCP tools: "
+            throw new IllegalStateException("Server capability manifest references unregistered MCP tools: "
                     + missingToolNames);
         }
     }
 
     private void validateMcpResources(
-            List<MarketplaceCapability> capabilities,
+            List<ServerCapability> capabilities,
             Map<String, Map<String, Object>> resourcesByUri) {
 
         List<String> missingResourceUris = capabilities.stream()
@@ -117,13 +148,13 @@ public final class MarketplaceCapabilityCatalogResourceProvider implements Resrc
                 .distinct()
                 .toList();
         if (!missingResourceUris.isEmpty()) {
-            throw new IllegalStateException("Marketplace capability catalog references unregistered MCP resources: "
+            throw new IllegalStateException("Server capability manifest references unregistered MCP resources: "
                     + missingResourceUris);
         }
     }
 
     private McpResourceResolution resolveMcpResources(
-            MarketplaceCapability capability,
+            ServerCapability capability,
             Map<String, Map<String, Object>> resourcesByUri) {
 
         Objects.requireNonNull(capability, "capability");

@@ -20,23 +20,22 @@ import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.re
 import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.requiredValue;
 
 @Service
-public final class McpResourceManifestCatalogService {
+public final class McpResourceCatalogService {
 
-  private static final Path MCP_RESOURCE_MANIFEST_CATALOG_PATH = Path.of(
-      "foundation",
-      "mcp_resources",
-      "mcp_resource_manifest_catalog.json");
+  private static final Path MCP_RESOURCE_CATALOG_PATH = Path.of(
+      "server",
+      "mcp_resource_catalog.json");
   private static final String CATALOG_LABEL = "MCP resource catalog";
-  private static final String EXPECTED_CATALOG_ID = "mcp_resource_manifest_catalog";
+  private static final String EXPECTED_CATALOG_ID = "mcp_resource_catalog";
   private static final String RESOURCE_URI_PREFIX = "resource://";
 
-  private final Map<String, ResrcManifestEntry> resourcesByKey;
+  private final Map<String, McpResourceCatalogEntry> resourcesByKey;
 
-  public McpResourceManifestCatalogService(ProjectCatalogJsonLoader catalogJsonLoader) {
+  public McpResourceCatalogService(ProjectCatalogJsonLoader catalogJsonLoader) {
     Objects.requireNonNull(catalogJsonLoader, "catalogJsonLoader");
-    JsonNode root = catalogJsonLoader.loadCatalogObject(MCP_RESOURCE_MANIFEST_CATALOG_PATH);
+    JsonNode root = catalogJsonLoader.loadCatalogObject(MCP_RESOURCE_CATALOG_PATH);
     requireCatalogId(root, CATALOG_LABEL, EXPECTED_CATALOG_ID);
-    requiredText(root, CATALOG_LABEL, "mcp_resource_manifest_catalog_version");
+    requiredText(root, CATALOG_LABEL, "mcp_resource_catalog_version");
     this.resourcesByKey = loadResources(root);
   }
 
@@ -44,7 +43,7 @@ public final class McpResourceManifestCatalogService {
       String resourceKey,
       ResrcProvid provider) {
 
-    ResrcManifestEntry entry = resource(resourceKey);
+    McpResourceCatalogEntry entry = resource(resourceKey);
     return new ResrcDefin(
         entry.resourceUri(),
         entry.resourceName(),
@@ -62,29 +61,29 @@ public final class McpResourceManifestCatalogService {
     return resource(resourceKey).resourceName();
   }
 
-  private ResrcManifestEntry resource(String resourceKey) {
+  private McpResourceCatalogEntry resource(String resourceKey) {
     String normalizedKey = requiredValue(resourceKey, CATALOG_LABEL, "resourceKey");
-    ResrcManifestEntry entry = resourcesByKey.get(normalizedKey);
+    McpResourceCatalogEntry entry = resourcesByKey.get(normalizedKey);
     if (entry == null) {
       throw new IllegalStateException("MCP resource catalog entry is missing: " + normalizedKey);
     }
     return entry;
   }
 
-  private static Map<String, ResrcManifestEntry> loadResources(JsonNode root) {
-    LinkedHashMap<String, ResrcManifestEntry> resources = new LinkedHashMap<>();
+  private static Map<String, McpResourceCatalogEntry> loadResources(JsonNode root) {
+    LinkedHashMap<String, McpResourceCatalogEntry> resources = new LinkedHashMap<>();
     Set<String> resourceUris = new LinkedHashSet<>();
     Set<String> resourceNames = new LinkedHashSet<>();
     for (JsonNode resourceNode : array(root, CATALOG_LABEL, "mcp_resources")) {
-      ResrcManifestEntry entry = new ResrcManifestEntry(
-          requiredText(resourceNode, CATALOG_LABEL, "resource_key"),
-          requireResourceUri(resourceNode, "resource_uri"),
-          requiredText(resourceNode, CATALOG_LABEL, "resource_name"),
-          requiredText(resourceNode, CATALOG_LABEL, "resource_description"),
-          requiredBoolean(resourceNode, CATALOG_LABEL, "resource_dynamic"),
-          requiredText(resourceNode, CATALOG_LABEL, "resource_group"));
+      McpResourceCatalogEntry entry = new McpResourceCatalogEntry(
+          requiredText(resourceNode, CATALOG_LABEL, "mcp_resource_key"),
+          requireResourceUri(resourceNode, "mcp_resource_uri"),
+          requiredText(resourceNode, CATALOG_LABEL, "mcp_resource_name"),
+          requiredText(resourceNode, CATALOG_LABEL, "mcp_resource_description"),
+          requiredBoolean(resourceNode, CATALOG_LABEL, "mcp_resource_dynamic"),
+          requiredText(resourceNode, CATALOG_LABEL, "mcp_resource_group"));
 
-      ResrcManifestEntry previous = resources.putIfAbsent(entry.resourceKey(), entry);
+      McpResourceCatalogEntry previous = resources.putIfAbsent(entry.resourceKey(), entry);
       if (previous != null) {
         throw new IllegalStateException("Duplicate MCP resource catalog key: " + entry.resourceKey());
       }
@@ -110,7 +109,7 @@ public final class McpResourceManifestCatalogService {
     return resourceUri;
   }
 
-  private record ResrcManifestEntry(
+  private record McpResourceCatalogEntry(
       String resourceKey,
       String resourceUri,
       String resourceName,

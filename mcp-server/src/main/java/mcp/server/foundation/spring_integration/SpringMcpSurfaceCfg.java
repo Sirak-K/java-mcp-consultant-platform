@@ -5,7 +5,7 @@ import mcp.server.foundation.control_plane.PlatformControlPlaneStore;
 import mcp.server.foundation.server_process.orchestration.OperatingModelReg;
 import mcp.server.foundation.server_process.orchestration.OperatingSurface;
 import mcp.server.foundation.server_process.orchestration.OperatingSurfaceContract;
-import mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService;
+import mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptions;
 import mcp.server.foundation.prompt_interface.PromptLoader;
 import mcp.server.foundation.prompt_interface.PromptReg;
 import mcp.server.foundation.prompt_interface.PromptService;
@@ -37,33 +37,32 @@ import java.util.Map;
 public class SpringMcpSurfaceCfg {
 
     @Bean
-    public OperatingModelReg operatingModelRegistry(
-            RuntimeContractDescriptionCatalogService descriptionCatalog) {
+    public OperatingModelReg operatingModelRegistry() {
         return new OperatingModelReg(List.of(
                 new OperatingSurfaceContract(
                         OperatingSurface.MCP_DIRECT,
-                        descriptionCatalog.operatingSurfaceDescription(OperatingSurface.MCP_DIRECT),
+                        RuntimeContractDescriptions.operatingSurfaceDescription(OperatingSurface.MCP_DIRECT),
                         true,
                         true,
                         false,
                         false,
-                        descriptionCatalog.operatingSurfaceContractSummary(OperatingSurface.MCP_DIRECT)),
+                        RuntimeContractDescriptions.operatingSurfaceContractSummary(OperatingSurface.MCP_DIRECT)),
                 new OperatingSurfaceContract(
                         OperatingSurface.APP_ADAPTER,
-                        descriptionCatalog.operatingSurfaceDescription(OperatingSurface.APP_ADAPTER),
+                        RuntimeContractDescriptions.operatingSurfaceDescription(OperatingSurface.APP_ADAPTER),
                         true,
                         true,
                         false,
                         false,
-                        descriptionCatalog.operatingSurfaceContractSummary(OperatingSurface.APP_ADAPTER)),
+                        RuntimeContractDescriptions.operatingSurfaceContractSummary(OperatingSurface.APP_ADAPTER)),
                 new OperatingSurfaceContract(
                         OperatingSurface.PLATFORM_OPS,
-                        descriptionCatalog.operatingSurfaceDescription(OperatingSurface.PLATFORM_OPS),
+                        RuntimeContractDescriptions.operatingSurfaceDescription(OperatingSurface.PLATFORM_OPS),
                         true,
                         true,
                         false,
                         true,
-                        descriptionCatalog.operatingSurfaceContractSummary(OperatingSurface.PLATFORM_OPS))));
+                        RuntimeContractDescriptions.operatingSurfaceContractSummary(OperatingSurface.PLATFORM_OPS))));
     }
 
     @Bean

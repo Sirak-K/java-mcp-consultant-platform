@@ -7,7 +7,7 @@ import type {
   CandidateCvProfileWorkingCopyInput,
   CandidateRoleWorkingCopyInput,
 } from "~/candidate_profiles/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 type ProfileWorkingCopyUpdater = (
   updater: (current: CandidateCvProfileWorkingCopyInput) => CandidateCvProfileWorkingCopyInput,
@@ -23,7 +23,7 @@ type RegisteredCandidateProfileRoleSectionProps = {
   updateProfileWorkingCopy: ProfileWorkingCopyUpdater;
   updateCandidateRole: CandidateRoleUpdater;
   canAddRole: boolean;
-  referenceData: MarketplaceReferenceData | null;
+  referenceData: ReferenceData | null;
 };
 
 export function RegisteredCandidateProfileRoleSection({

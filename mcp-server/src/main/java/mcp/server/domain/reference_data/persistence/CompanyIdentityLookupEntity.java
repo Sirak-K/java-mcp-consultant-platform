@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 
 @Entity
-@Table(name = "company_identity_lookup", schema = "marketplace", indexes = {
+@Table(name = "company_identity_lookup", schema = "consultant_platform", indexes = {
         @Index(name = "idx_company_identity_lookup_name_norm", columnList = "organisation_name_normalized")
 })
 public class CompanyIdentityLookupEntity {

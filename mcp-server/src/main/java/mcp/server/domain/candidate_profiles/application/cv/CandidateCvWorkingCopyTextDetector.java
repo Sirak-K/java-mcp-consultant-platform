@@ -17,6 +17,7 @@ final class CandidateCvWorkingCopyTextDetector {
   private final CandidateCvRoleTextDetector roleTextDetector;
   private final CandidateCvSkillTextDetector skillTextDetector;
   private final CandidateCvProfileAttributeTextDetector profileAttributeTextDetector;
+  private final CandidateCvExtractionCatalogService extractionCatalogService;
 
   CandidateCvWorkingCopyTextDetector(
       CandidateCvTextMatcher textMatcher,
@@ -26,7 +27,8 @@ final class CandidateCvWorkingCopyTextDetector {
       CandidateCvExperienceTextDetector experienceTextDetector,
       CandidateCvRoleTextDetector roleTextDetector,
       CandidateCvSkillTextDetector skillTextDetector,
-      CandidateCvProfileAttributeTextDetector profileAttributeTextDetector) {
+      CandidateCvProfileAttributeTextDetector profileAttributeTextDetector,
+      CandidateCvExtractionCatalogService extractionCatalogService) {
     this.textMatcher = textMatcher;
     this.sectionExtractor = sectionExtractor;
     this.contactTextDetector = contactTextDetector;
@@ -35,6 +37,7 @@ final class CandidateCvWorkingCopyTextDetector {
     this.roleTextDetector = roleTextDetector;
     this.skillTextDetector = skillTextDetector;
     this.profileAttributeTextDetector = profileAttributeTextDetector;
+    this.extractionCatalogService = extractionCatalogService;
   }
 
   CandidateCvWebContract.CandidateCvProfileWorkingCopyView toWorkingCopy(
@@ -83,7 +86,7 @@ final class CandidateCvWorkingCopyTextDetector {
           .collect(Collectors.joining(", "));
     }
 
-    return new CandidateCvWebContract.CandidateCvProfileWorkingCopyView(
+    return applyDoNotInferConstraints(new CandidateCvWebContract.CandidateCvProfileWorkingCopyView(
         contact.contactEmail(),
         contact.firstName(),
         contact.lastName(),
@@ -107,7 +110,7 @@ final class CandidateCvWorkingCopyTextDetector {
         willingToRelocate,
         educations,
         List.of(),
-        false);
+        false));
   }
 
   private CandidateCvWebContract.CandidateCvProfileWorkingCopyView emptyWorkingCopy(String contactEmail) {
@@ -136,5 +139,41 @@ final class CandidateCvWorkingCopyTextDetector {
         List.of(),
         List.of(),
         false);
+  }
+
+  private CandidateCvWebContract.CandidateCvProfileWorkingCopyView applyDoNotInferConstraints(
+      CandidateCvWebContract.CandidateCvProfileWorkingCopyView view) {
+
+    List<String> doNotInferFields = extractionCatalogService.candidateDoNotInferFields();
+    boolean salaryConstrained = doNotInferFields.contains("salary_expectation");
+    boolean referenceConsentConstrained = doNotInferFields.contains("consent_to_contact_references");
+    if (!salaryConstrained && !referenceConsentConstrained) {
+      return view;
+    }
+    return new CandidateCvWebContract.CandidateCvProfileWorkingCopyView(
+        view.contactEmail(),
+        view.firstName(),
+        view.lastName(),
+        view.phoneNumber(),
+        view.country(),
+        view.city(),
+        view.workStatus(),
+        view.languages(),
+        view.roleTitle(),
+        view.candidateRoles(),
+        view.profileSummary(),
+        view.yearsOfExperience(),
+        salaryConstrained ? "" : view.expectedSalary(),
+        salaryConstrained ? "" : view.hourlyRate(),
+        view.skills(),
+        view.candidateSkills(),
+        view.workExperiences(),
+        view.workMode(),
+        view.locationFlexibility(),
+        view.preferredLocation(),
+        view.willingToRelocate(),
+        view.educations(),
+        view.certifications(),
+        referenceConsentConstrained ? false : view.gdprConsent());
   }
 }

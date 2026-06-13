@@ -14,22 +14,8 @@ export interface ReferenceSkillLevelOption {
   name: string;
 }
 
-export interface MarketplaceReferenceOption {
-  id: number;
-  title: string;
-}
-
-export interface MarketplaceReferenceSkillOption extends MarketplaceReferenceOption {
-  category: SkillCategory;
-}
-
-export interface MarketplaceSkillLevelOption {
-  id: number;
-  name: string;
-}
-
-export interface MarketplaceReferenceData {
-  roles: MarketplaceReferenceOption[];
-  skills: MarketplaceReferenceSkillOption[];
-  skillLevels: MarketplaceSkillLevelOption[];
+export interface ReferenceData {
+  roles: ReferenceOption[];
+  skills: ReferenceSkillOption[];
+  skillLevels: ReferenceSkillLevelOption[];
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "competency_level_lookup", schema = "marketplace")
+@Table(name = "competency_level_lookup", schema = "consultant_platform")
 public class CompetencyLevelLookupEntity {
 
     @Id

@@ -18,7 +18,7 @@ import org.hibernate.type.SqlTypes;
 import java.time.Instant;
 
 @Entity
-@Table(name = "cand_profile_certifications", schema = "marketplace", uniqueConstraints = {
+@Table(name = "cand_profile_certifications", schema = "consultant_platform", uniqueConstraints = {
         @UniqueConstraint(name = "uk_cand_profile_certification", columnNames = { "cand_profile_id",
                 "certification_number" })
 }, indexes = {

@@ -4,27 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class MarketplaceCapabilityCatalog {
+public final class ServerCapabilityCatalog {
 
-        private MarketplaceCapabilityCatalog() {
+        private ServerCapabilityCatalog() {
         }
 
-        public record MarketplaceCapability(
+        public record ServerCapability(
                         String id,
                         String title,
                         List<String> backendEndpoints,
                         List<String> mcpTools,
                         List<String> mcpResources,
+                        List<String> mcpPrompts,
                         List<String> reactSurfaces,
                         List<String> persistenceAnchors,
                         CapabilityRiskClass riskClass) {
 
-                public MarketplaceCapability {
+                public ServerCapability {
                         id = requireText(id, "id");
                         title = requireText(title, "title");
                         backendEndpoints = List.copyOf(Objects.requireNonNull(backendEndpoints, "backendEndpoints"));
                         mcpTools = List.copyOf(Objects.requireNonNull(mcpTools, "mcpTools"));
                         mcpResources = List.copyOf(Objects.requireNonNull(mcpResources, "mcpResources"));
+                        mcpPrompts = List.copyOf(Objects.requireNonNull(mcpPrompts, "mcpPrompts"));
                         reactSurfaces = List.copyOf(Objects.requireNonNull(reactSurfaces, "reactSurfaces"));
                         persistenceAnchors = List
                                         .copyOf(Objects.requireNonNull(persistenceAnchors, "persistenceAnchors"));
@@ -34,6 +36,7 @@ public final class MarketplaceCapabilityCatalog {
                 public List<String> mcpSurfaces() {
                         List<String> surfaces = new ArrayList<>(mcpTools);
                         surfaces.addAll(mcpResources);
+                        surfaces.addAll(mcpPrompts);
                         return List.copyOf(surfaces);
                 }
         }

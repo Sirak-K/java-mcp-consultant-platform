@@ -23,7 +23,6 @@ public final class MissionProposalTextDetectionCatalogService {
 
   private static final Path MISSION_PROPOSAL_CATALOG_PATH = Path.of(
       "missions",
-      "text_detection",
       "mission_proposal_text_detection_catalog.json");
   private static final String CATALOG_LABEL = "Mission proposal text detection catalog";
   private static final String EXPECTED_CATALOG_ID = "mission_proposal_text_detection_catalog";

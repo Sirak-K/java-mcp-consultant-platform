@@ -22,7 +22,7 @@ import java.util.List;
  * Live, editable and matchable candidate profile aggregate.
  */
 @Entity
-@Table(name = "cand_profile", schema = "marketplace", indexes = {
+@Table(name = "cand_profile", schema = "consultant_platform", indexes = {
         @Index(name = "idx_cand_profile_created_at", columnList = "created_at")
 })
 public class CandidateProfileEntity {

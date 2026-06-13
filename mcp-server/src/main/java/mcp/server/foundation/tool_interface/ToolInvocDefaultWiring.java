@@ -10,7 +10,7 @@ import mcp.server.foundation.security.request_binding.ReqsBindingStage;
 import mcp.server.foundation.security.request_binding.ReqsLifecyContract;
 import mcp.server.foundation.security.request_binding.ReqsLifecyReg;
 import mcp.server.foundation.server_process.orchestration.OperatingSurface;
-import mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService;
+import mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptions;
 
 import java.util.List;
 
@@ -40,8 +40,6 @@ final class ToolInvocDefaultWiring {
   }
 
   static ReqsBindingComplianceGuard complianceGuard() {
-    RuntimeContractDescriptionCatalogService descriptions =
-        RuntimeContractDescriptionCatalogService.defaultCatalogService();
     return new ReqsBindingComplianceGuard(new ReqsLifecyReg(List.of(
         new ReqsLifecyContract(
             OperatingSurface.MCP_DIRECT,
@@ -49,20 +47,20 @@ final class ToolInvocDefaultWiring {
             false,
             false,
             ReqsBindingStage.PLATFORM_BOUND,
-            descriptions.requestLifecycleSummary(OperatingSurface.MCP_DIRECT)),
+            RuntimeContractDescriptions.requestLifecycleSummary(OperatingSurface.MCP_DIRECT)),
         new ReqsLifecyContract(
             OperatingSurface.APP_ADAPTER,
             true,
             true,
             false,
             ReqsBindingStage.PRE_SESSION,
-            descriptions.requestLifecycleSummary(OperatingSurface.APP_ADAPTER)),
+            RuntimeContractDescriptions.requestLifecycleSummary(OperatingSurface.APP_ADAPTER)),
         new ReqsLifecyContract(
             OperatingSurface.PLATFORM_OPS,
             true,
             false,
             true,
             ReqsBindingStage.PLATFORM_BOUND,
-            descriptions.requestLifecycleSummary(OperatingSurface.PLATFORM_OPS)))));
+            RuntimeContractDescriptions.requestLifecycleSummary(OperatingSurface.PLATFORM_OPS)))));
   }
 }

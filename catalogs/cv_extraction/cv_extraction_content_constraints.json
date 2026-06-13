@@ -1,0 +1,13 @@
+{
+  "catalog_id": "cv_extraction_content_constraints",
+  "cv_extraction_content_constraints_version": "1.0.0",
+  "do_not_infer": [
+    "age",
+    "gender",
+    "nationality",
+    "salary_expectation",
+    "security_clearance",
+    "availability_date",
+    "consent_to_contact_references"
+  ]
+}

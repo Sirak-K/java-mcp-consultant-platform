@@ -14,7 +14,7 @@ import type {
   CandidateProfileReviewItem,
 } from "~/candidate_profiles/types";
 import { referenceDataApi } from "~/reference_data/api/referenceDataApi";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 import { OperationsIntakeReviewQueue } from "~/system_operations/review/OperationsIntakeReviewQueue";
 import { RegisteredCandidateProfileEditForm } from "./RegisteredCandidateProfileEditForm";
 
@@ -38,7 +38,7 @@ function registeredCandidateProfileTitle(
 
 export default function RegisteredCandidateProfilesPage() {
   const [referenceData, setReferenceData] =
-    useState<MarketplaceReferenceData | null>(null);
+    useState<ReferenceData | null>(null);
 
   useEffect(() => {
     let mounted = true;

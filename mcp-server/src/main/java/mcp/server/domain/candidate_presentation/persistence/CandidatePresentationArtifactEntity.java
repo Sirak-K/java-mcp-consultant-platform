@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "candidate_presentation_artifact", schema = "marketplace", uniqueConstraints = {
+@Table(name = "candidate_presentation_artifact", schema = "consultant_platform", uniqueConstraints = {
     @UniqueConstraint(name = "uk_candidate_presentation_artifact_match", columnNames = {
         "source_candidate_to_slot_match_id" })
 }, indexes = {

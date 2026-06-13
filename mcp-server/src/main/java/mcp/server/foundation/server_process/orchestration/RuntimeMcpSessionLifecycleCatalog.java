@@ -11,8 +11,7 @@ public final class RuntimeMcpSessionLifecycleCatalog {
   }
 
   public static List<RTMcpSessLifecyContract> defaultContracts(
-      long inactivityTtlSeconds,
-      RuntimeContractDescriptionCatalogService descriptionCatalog) {
+      long inactivityTtlSeconds) {
 
     return List.of(
         new RTMcpSessLifecyContract(
@@ -24,7 +23,7 @@ public final class RuntimeMcpSessionLifecycleCatalog {
             false,
             false,
             inactivityTtlSeconds,
-            descriptionCatalog.runtimeSessionLifecycleSummary(RTMcpSessType.MCP_SESSION)),
+            RuntimeContractDescriptions.runtimeSessionLifecycleSummary(RTMcpSessType.MCP_SESSION)),
         new RTMcpSessLifecyContract(
             RTMcpSessType.APP_PRE_SESSION,
             RTMcpSessPhase.PRE_SESSION,
@@ -34,7 +33,7 @@ public final class RuntimeMcpSessionLifecycleCatalog {
             true,
             false,
             inactivityTtlSeconds,
-            descriptionCatalog.runtimeSessionLifecycleSummary(RTMcpSessType.APP_PRE_SESSION)),
+            RuntimeContractDescriptions.runtimeSessionLifecycleSummary(RTMcpSessType.APP_PRE_SESSION)),
         new RTMcpSessLifecyContract(
             RTMcpSessType.BOUND_BUSINESS_SESSION,
             RTMcpSessPhase.ACTIVE,
@@ -44,7 +43,7 @@ public final class RuntimeMcpSessionLifecycleCatalog {
             false,
             true,
             inactivityTtlSeconds,
-            descriptionCatalog.runtimeSessionLifecycleSummary(RTMcpSessType.BOUND_BUSINESS_SESSION)),
+            RuntimeContractDescriptions.runtimeSessionLifecycleSummary(RTMcpSessType.BOUND_BUSINESS_SESSION)),
         new RTMcpSessLifecyContract(
             RTMcpSessType.PLATFORM_OPS_SESSION,
             RTMcpSessPhase.ACTIVE,
@@ -54,6 +53,6 @@ public final class RuntimeMcpSessionLifecycleCatalog {
             false,
             true,
             inactivityTtlSeconds,
-            descriptionCatalog.runtimeSessionLifecycleSummary(RTMcpSessType.PLATFORM_OPS_SESSION)));
+            RuntimeContractDescriptions.runtimeSessionLifecycleSummary(RTMcpSessType.PLATFORM_OPS_SESSION)));
   }
 }

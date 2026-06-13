@@ -4,262 +4,220 @@
   "runtime_triage_symptoms": [
     {
       "symptom_key": "readiness_down",
-      "symptom_id": "readiness_down",
       "operator_hint": "Kontrollera /ops/health/ready och identifiera vilken dependency som ar DOWN.",
       "signals": [
         {
           "signal_key": "ready_status_down",
           "signal_source": "health",
-          "signal_id": "ready_status_down",
           "detail_template": "status={status}"
         },
         {
           "signal_key": "runtime_check_down",
           "signal_source": "health",
-          "signal_id": "runtime_check_down",
           "detail_template": "{detail}"
         },
         {
           "signal_key": "database_check_down",
           "signal_source": "health",
-          "signal_id": "database_check_down",
           "detail_template": "{detail}"
         }
       ]
     },
     {
       "symptom_key": "database_unreachable",
-      "symptom_id": "database_unreachable",
       "operator_hint": "Kontrollera databasanslutning och readiness-checkens database-signal.",
       "signals": [
         {
           "signal_key": "database_down",
           "signal_source": "health",
-          "signal_id": "database_down",
           "detail_template": "{detail}"
         },
         {
           "signal_key": "database_reachable_failed",
           "signal_source": "checks",
-          "signal_id": "database_reachable_failed",
           "detail_template": "{detail}"
         }
       ]
     },
     {
       "symptom_key": "transport_errors_observed",
-      "symptom_id": "transport_errors_observed",
       "operator_hint": "Kontrollera error-loggen och transportspecifika fel kring natverk eller SSE/WebSocket-leverans.",
       "signals": [
         {
           "signal_key": "transport_error_count",
           "signal_source": "runtime",
-          "signal_id": "transport_error_count",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "transport_errors_total",
           "signal_source": "metrics",
-          "signal_id": "transport_errors_total",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "test_log_available",
           "signal_source": "logging",
-          "signal_id": "test_log_available",
           "detail_template": "enabled={enabled}, required={required}, exists={exists}"
         },
         {
           "signal_key": "error_log_available",
           "signal_source": "logging",
-          "signal_id": "error_log_available",
           "detail_template": "enabled={enabled}, required={required}, exists={exists}"
         }
       ]
     },
     {
       "symptom_key": "auth_denials_observed",
-      "symptom_id": "auth_denials_observed",
       "operator_hint": "Kontrollera auth-header, bearer-token och audit-spar for deny-handelser.",
       "signals": [
         {
           "signal_key": "auth_denied_total",
           "signal_source": "metrics",
-          "signal_id": "auth_denied_total",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "test_log_available",
           "signal_source": "logging",
-          "signal_id": "test_log_available",
           "detail_template": "enabled={enabled}, required={required}, exists={exists}"
         },
         {
           "signal_key": "audit_log_available",
           "signal_source": "logging",
-          "signal_id": "audit_log_available",
           "detail_template": "enabled={enabled}, required={required}, exists={exists}"
         }
       ]
     },
     {
       "symptom_key": "canonical_logging_missing",
-      "symptom_id": "canonical_logging_missing",
       "operator_hint": "Kontrollera loggmapp, file sink och canonical loggfiler innan vidare felsokning.",
       "signals": [
         {
           "signal_key": "server_log_missing",
           "signal_source": "runtime",
-          "signal_id": "server_log_missing",
           "detail_template": "required={required}, exists={exists}"
         },
         {
           "signal_key": "error_log_missing",
           "signal_source": "runtime",
-          "signal_id": "error_log_missing",
           "detail_template": "required={required}, exists={exists}"
         },
         {
           "signal_key": "audit_log_missing",
           "signal_source": "runtime",
-          "signal_id": "audit_log_missing",
           "detail_template": "required={required}, exists={exists}"
         },
         {
           "signal_key": "test_log_missing",
           "signal_source": "runtime",
-          "signal_id": "test_log_missing",
           "detail_template": "required={required}, exists={exists}"
         },
         {
           "signal_key": "canonical_logs_present_failed",
           "signal_source": "checks",
-          "signal_id": "canonical_logs_present_failed",
           "detail_template": "{detail}"
         }
       ]
     },
     {
       "symptom_key": "tool_timeouts_observed",
-      "symptom_id": "tool_timeouts_observed",
       "operator_hint": "Kontrollera timeout-policy, top failing tools och traces for verktygsfloden.",
       "signals": [
         {
           "signal_key": "tool_timeouts_total",
           "signal_source": "metrics",
-          "signal_id": "tool_timeouts_total",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "most_failing_tools_present",
           "signal_source": "runtime",
-          "signal_id": "most_failing_tools_present",
           "detail_template": "count={count}"
         }
       ]
     },
     {
       "symptom_key": "tail_latency_calibration_required",
-      "symptom_id": "tail_latency_calibration_required",
       "operator_hint": "Kalibrera concurrency, timeout och burst-floden utifran p95/p99 innan fler andringar gors pa medelvarden.",
       "signals": [
         {
           "signal_key": "status",
           "signal_source": "calibration",
-          "signal_id": "status",
           "detail_template": "{status}"
         },
         {
           "signal_key": "recommendations_present",
           "signal_source": "calibration",
-          "signal_id": "recommendations_present",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "tool_queue_wait_p95_millis",
           "signal_source": "metrics",
-          "signal_id": "tool_queue_wait_p95_millis",
           "detail_template": "p95Millis={p95Millis}"
         },
         {
           "signal_key": "tool_queue_wait_p99_millis",
           "signal_source": "metrics",
-          "signal_id": "tool_queue_wait_p99_millis",
           "detail_template": "p99Millis={p99Millis}"
         },
         {
           "signal_key": "top_recommendation",
           "signal_source": "calibration",
-          "signal_id": "top_recommendation",
           "detail_template": "{topRecommendation}"
         }
       ]
     },
     {
       "symptom_key": "tool_concurrency_rejections_observed",
-      "symptom_id": "tool_concurrency_rejections_observed",
       "operator_hint": "Kontrollera samtidighetsgrans, koetryck och aktiva verktygsinvokeringar.",
       "signals": [
         {
           "signal_key": "tool_rejections_total",
           "signal_source": "metrics",
-          "signal_id": "tool_rejections_total",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "global_concurrency_available_permits_low",
           "signal_source": "runtime",
-          "signal_id": "global_concurrency_available_permits_low",
           "detail_template": "available={available}, max={max}"
         }
       ]
     },
     {
       "symptom_key": "tool_queue_pressure_observed",
-      "symptom_id": "tool_queue_pressure_observed",
       "operator_hint": "Kontrollera koevantan, belastningstoppar och om samtidighetsgranser behover justeras.",
       "signals": [
         {
           "signal_key": "tool_queue_pressure_events",
           "signal_source": "metrics",
-          "signal_id": "tool_queue_pressure_events",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "tool_queue_wait_max_millis",
           "signal_source": "metrics",
-          "signal_id": "tool_queue_wait_max_millis",
           "detail_template": "maxMillis={maxMillis}"
         },
         {
           "signal_key": "tool_queue_wait_p95_millis",
           "signal_source": "metrics",
-          "signal_id": "tool_queue_wait_p95_millis",
           "detail_template": "p95Millis={p95Millis}"
         },
         {
           "signal_key": "tool_queue_wait_p99_millis",
           "signal_source": "metrics",
-          "signal_id": "tool_queue_wait_p99_millis",
           "detail_template": "p99Millis={p99Millis}"
         }
       ]
     },
     {
       "symptom_key": "persistence_failures_observed",
-      "symptom_id": "persistence_failures_observed",
       "operator_hint": "Kontrollera databasfel, pooltryck och traces kring persistenslagret.",
       "signals": [
         {
           "signal_key": "persistence_failures_total",
           "signal_source": "metrics",
-          "signal_id": "persistence_failures_total",
           "detail_template": "count={count}"
         },
         {
           "signal_key": "persistence_calls_total",
           "signal_source": "metrics",
-          "signal_id": "persistence_calls_total",
           "detail_template": "count={count}"
         }
       ]

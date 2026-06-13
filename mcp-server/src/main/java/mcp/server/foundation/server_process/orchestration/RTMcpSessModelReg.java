@@ -54,11 +54,8 @@ public final class RTMcpSessModelReg {
   }
 
   public static RTMcpSessModelReg RTMcpSessModelRegDefault(
-      long inactivityTtlSeconds,
-      RuntimeContractDescriptionCatalogService descriptionCatalog) {
+      long inactivityTtlSeconds) {
     return new RTMcpSessModelReg(
-        RuntimeMcpSessionLifecycleCatalog.defaultContracts(
-            inactivityTtlSeconds,
-            descriptionCatalog));
+        RuntimeMcpSessionLifecycleCatalog.defaultContracts(inactivityTtlSeconds));
   }
 }

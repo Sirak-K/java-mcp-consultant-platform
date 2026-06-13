@@ -34,7 +34,7 @@ A tool should be thin: it validates and routes a capability call, while domain/a
 
 ## Resources
 
-Resources expose readable server information. The backend includes resource providers for runtime overview, recent audit data, tool catalogs, MCP resource manifests and marketplace capability metadata.
+Resources expose readable server information. The backend includes resource providers for runtime overview, recent audit data, tool catalogs, MCP resource manifests and server capability metadata.
 
 Resources should describe server state or contracts without becoming a second implementation of business logic.
 
@@ -54,7 +54,7 @@ A typical MCP capability flow is:
 4. The capability delegates to the correct application/domain service.
 5. The server records operational signals and returns a structured result.
 
-This lifecycle keeps MCP protocol concerns separate from marketplace workflow logic.
+This lifecycle keeps MCP protocol concerns separate from consultant-platform workflow logic.
 
 ## Exposed workflow areas
 

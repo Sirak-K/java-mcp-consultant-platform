@@ -1,0 +1,21 @@
+{
+  "catalog_id": "generation_evidence_traces",
+  "generation_evidence_traces_version": "1.0.0",
+  "evidence_trace_fields": [
+    {
+      "field_key": "Presentation Section",
+      "field_title": "Presentation Section",
+      "field_description": "The generated section whose claim is being supported."
+    },
+    {
+      "field_key": "Evidence Family",
+      "field_title": "Evidence Family",
+      "field_description": "The evidence category used for the claim."
+    },
+    {
+      "field_key": "Evidence Used",
+      "field_title": "Evidence Used",
+      "field_description": "The compact evidence detail used for the generated claim."
+    }
+  ]
+}

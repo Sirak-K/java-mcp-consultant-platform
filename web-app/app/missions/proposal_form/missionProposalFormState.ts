@@ -15,7 +15,7 @@ import type {
   MissionSlotInput,
   MissionSkillRequirementInput,
 } from "~/missions/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 import { workModeForEdit } from "~/reference_data/workMode";
 
 export type MissionProposalEditWorkingCopy = Omit<
@@ -24,7 +24,7 @@ export type MissionProposalEditWorkingCopy = Omit<
 >;
 
 export function defaultMissionSkillRequirement(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): MissionSkillRequirementInput {
   const skill = referenceData?.skills[0];
   return {
@@ -46,7 +46,7 @@ export function parseMissionSkillSelection(value: string): Pick<
 }
 
 export function defaultMissionSlot(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): MissionSlotInput {
   return {
     roleId: referenceData?.roles[0]?.id ?? 0,
@@ -56,7 +56,7 @@ export function defaultMissionSlot(
 }
 
 export function defaultMissionProposalInput(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): MissionProposalInput {
   return {
     customerName: "",
@@ -83,7 +83,7 @@ export function missionPresentationWithLimitedField(
 
 function normalizePreviewSkill(
   skill: MissionSkillRequirementInput | undefined,
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): MissionSkillRequirementInput {
   const fallbackSkill = defaultMissionSkillRequirement(referenceData);
   return {
@@ -98,7 +98,7 @@ function normalizePreviewSkill(
 
 function normalizePreviewSlot(
   slot: MissionSlotInput,
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): MissionSlotInput {
   const requiredSkills =
     slot.requiredSkills.length > 0
@@ -118,7 +118,7 @@ function normalizePreviewSlot(
 
 export function normalizeMissionPreviewSlots(
   slots: MissionSlotInput[],
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): MissionSlotInput[] {
   return slots.length > 0
     ? slots.map((slot) => normalizePreviewSlot(slot, referenceData))

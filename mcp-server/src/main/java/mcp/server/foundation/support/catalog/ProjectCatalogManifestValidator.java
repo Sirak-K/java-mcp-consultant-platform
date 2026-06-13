@@ -27,19 +27,25 @@ public final class ProjectCatalogManifestValidator {
   private static final String RESOURCE_URI_PREFIX = "resource://";
   private static final Set<String> OWNER_SURFACES = Set.of(
       "candidate_presentation",
-      "candidate_profiles",
-      "foundation",
+      "cv_extraction",
       "match_notifications",
       "missions",
-      "observability");
+      "server",
+      "system_operations");
   private static final Set<String> CATALOG_KINDS = Set.of(
-      "candidate_presentation_generation_contract",
-      "candidate_presentation_generation_guidance",
-      "candidate_presentation_section_semantics",
+      "candidate_presentation_generation_content_constraints",
+      "candidate_presentation_generation_content_structure",
+      "candidate_presentation_generation_evidence_traces",
+      "candidate_presentation_generation_output_contract_schema",
+      "candidate_presentation_generation_policy",
+      "cv_extraction_content_blocks",
+      "cv_extraction_content_constraints",
+      "cv_extraction_text_detection",
       "email_template",
-      "marketplace_capability_contract",
-      "mcp_resource_manifest",
-      "runtime_contract_description",
+      "mcp_prompt_catalog",
+      "mcp_resource_catalog",
+      "mcp_tool_catalog",
+      "server_capabilities_manifest",
       "runtime_triage_symptoms",
       "text_detection_semantics");
 

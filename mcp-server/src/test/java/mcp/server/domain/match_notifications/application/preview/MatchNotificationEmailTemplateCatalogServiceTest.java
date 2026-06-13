@@ -16,7 +16,7 @@ class MatchNotificationEmailTemplateCatalogServiceTest {
   @Test
   void loadsEmployerFacingMatchNotificationEmailTemplateContract() {
     assertThat(catalogService.subject()).isEqualTo("New candidate match available");
-    assertThat(catalogService.htmlSignalBanner()).isEqualTo("Consultant Match Ops - Match Notification");
+    assertThat(catalogService.htmlSignalBanner()).isEqualTo("Consultant To Mission Match Notification");
     assertThat(catalogService.matchedCandidateProfileDetailsTitle())
         .isEqualTo("Matched Candidate Profile Details");
     assertThat(catalogService.candidateNameLabel()).isEqualTo("Candidate Name");

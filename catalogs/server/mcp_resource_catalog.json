@@ -1,0 +1,78 @@
+{
+  "catalog_id": "mcp_resource_catalog",
+  "mcp_resource_catalog_version": "1.0.0",
+  "mcp_resources": [
+    {
+      "mcp_resource_key": "tools_catalog",
+      "mcp_resource_uri": "resource://tools/catalog",
+      "mcp_resource_name": "tools/catalog",
+      "mcp_resource_description": "Catalog of all registered MCP tools with their schemas and execution policies.",
+      "mcp_resource_dynamic": true,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "server_capabilities",
+      "mcp_resource_uri": "resource://server/capabilities",
+      "mcp_resource_name": "server/capabilities",
+      "mcp_resource_description": "Server capability manifest mapped to endpoints, MCP tools, MCP resources, MCP prompts, React surfaces, and persistence anchors.",
+      "mcp_resource_dynamic": false,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "ops_runtime_overview",
+      "mcp_resource_uri": "resource://ops/runtime-overview",
+      "mcp_resource_name": "ops/runtime-overview",
+      "mcp_resource_description": "Operational runtime overview: status, metrics, health checks, and control-plane view.",
+      "mcp_resource_dynamic": true,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "consultant_roles",
+      "mcp_resource_uri": "resource://catalog/roles",
+      "mcp_resource_name": "catalog/roles",
+      "mcp_resource_description": "Reference catalog of all 20 consultant job roles, read from consultant_platform.role.",
+      "mcp_resource_dynamic": false,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "skill_levels",
+      "mcp_resource_uri": "resource://catalog/skill-levels",
+      "mcp_resource_name": "catalog/skill-levels",
+      "mcp_resource_description": "Reference catalog of all available skill levels, read from database.",
+      "mcp_resource_dynamic": false,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "technical_skills",
+      "mcp_resource_uri": "resource://catalog/skills",
+      "mcp_resource_name": "catalog/skills",
+      "mcp_resource_description": "Reference catalog of all 50 technical skills, including PRIMARY and SECONDARY category.",
+      "mcp_resource_dynamic": false,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "recent_audit_entries",
+      "mcp_resource_uri": "resource://audit/recent",
+      "mcp_resource_name": "audit/recent",
+      "mcp_resource_description": "The 25 most recent audit entries, newest first. Passive background context for MCP clients.",
+      "mcp_resource_dynamic": true,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    },
+    {
+      "mcp_resource_key": "candidate_presentation_generation_contract",
+      "mcp_resource_uri": "resource://candidate-presentation/generation-contract",
+      "mcp_resource_name": "candidate-presentation/generation-contract",
+      "mcp_resource_description": "Server-owned Candidate Presentation generation contract and guidance context.",
+      "mcp_resource_dynamic": false,
+      "mcp_resource_mime_type": "application/json",
+      "mcp_resource_group": "canonical_mcp_resources"
+    }
+  ]
+}

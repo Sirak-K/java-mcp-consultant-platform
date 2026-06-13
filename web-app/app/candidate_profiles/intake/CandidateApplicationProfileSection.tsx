@@ -9,13 +9,13 @@ import {
 } from "~/candidate_profiles/intake/candidateApplicationIntakeState";
 import { SkillOptionGroups } from "~/reference_data/components/SkillOptionGroups";
 import { formatCompetencyLevelLabel } from "~/reference_data/competencyLevels";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 type CandidateApplicationProfileSectionProps = {
   cvProfile: CandidateCvProfileFormFields;
   candidateRoles: CandidateRoleFormFields[];
   candidateSkills: CandidateSkillFormFields[];
-  referenceData: MarketplaceReferenceData | null;
+  referenceData: ReferenceData | null;
   loadingReferences: boolean;
   updateProfileField: <K extends keyof CandidateCvProfileFormFields>(
     name: K,

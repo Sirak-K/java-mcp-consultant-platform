@@ -11,11 +11,11 @@ import static mcp.server.domain.shared_kernel.validation.ApplicationInputValidat
 @Component
 final class CandidateCvProfileAttributeTextDetector {
 
-  private final CandidateProfileTextDetectionCatalogService textDetectionCatalogService;
+  private final CandidateCvExtractionCatalogService textDetectionCatalogService;
   private final CandidateCvTextMatcher textMatcher;
 
   CandidateCvProfileAttributeTextDetector(
-      CandidateProfileTextDetectionCatalogService textDetectionCatalogService,
+      CandidateCvExtractionCatalogService textDetectionCatalogService,
       CandidateCvTextMatcher textMatcher) {
     this.textDetectionCatalogService = textDetectionCatalogService;
     this.textMatcher = textMatcher;
@@ -37,7 +37,7 @@ final class CandidateCvProfileAttributeTextDetector {
   }
 
   String detectWorkModeText(String extractedText, String profileSummary) {
-    for (CandidateProfileTextDetectionCatalogService.CandidateWorkModeSignal signal : textDetectionCatalogService
+    for (CandidateCvExtractionCatalogService.CandidateWorkModeSignal signal : textDetectionCatalogService
         .candidateWorkModeSignals()) {
       if (textMatcher.containsAnyIgnoreCase(extractedText, signal.terms())
           || textMatcher.containsAnyIgnoreCase(profileSummary, signal.profileSummaryTerms())) {

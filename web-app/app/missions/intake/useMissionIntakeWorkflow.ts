@@ -29,7 +29,7 @@ import type {
 } from "~/missions/types";
 import type { ApiError } from "~/shared/api/apiErrors";
 import type {
-  MarketplaceReferenceData,
+  ReferenceData,
   SkillCategory,
 } from "~/reference_data/types";
 
@@ -39,7 +39,7 @@ const MISSION_TITLE_MAX_WORDS = 20;
 export function useMissionIntakeWorkflow() {
   const [form, setForm] = useState<MissionProposalInput>(formDefaults(null));
   const [referenceData, setReferenceData] =
-    useState<MarketplaceReferenceData | null>(null);
+    useState<ReferenceData | null>(null);
   const [loadingReferences, setLoadingReferences] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);

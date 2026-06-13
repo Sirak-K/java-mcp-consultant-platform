@@ -10,11 +10,11 @@ import static mcp.server.domain.shared_kernel.validation.ApplicationInputValidat
 @Component
 final class CandidateCvLocationTextDetector {
 
-  private final CandidateProfileTextDetectionCatalogService textDetectionCatalogService;
+  private final CandidateCvExtractionCatalogService textDetectionCatalogService;
   private final CandidateCvTextMatcher textMatcher;
 
   CandidateCvLocationTextDetector(
-      CandidateProfileTextDetectionCatalogService textDetectionCatalogService,
+      CandidateCvExtractionCatalogService textDetectionCatalogService,
       CandidateCvTextMatcher textMatcher) {
     this.textDetectionCatalogService = textDetectionCatalogService;
     this.textMatcher = textMatcher;
@@ -40,7 +40,7 @@ final class CandidateCvLocationTextDetector {
         return new DetectedLocation(city, "Sweden");
       }
     }
-    for (CandidateProfileTextDetectionCatalogService.CountryTermSignal signal : textDetectionCatalogService
+    for (CandidateCvExtractionCatalogService.CountryTermSignal signal : textDetectionCatalogService
         .candidateCountryTermSignals()) {
       if (textMatcher.containsAnyIgnoreCase(safeText, signal.terms())) {
         return new DetectedLocation("", signal.country());

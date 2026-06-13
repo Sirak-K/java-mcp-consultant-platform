@@ -15,7 +15,7 @@ import jakarta.persistence.UniqueConstraint;
 import org.hibernate.annotations.Formula;
 
 @Entity
-@Table(name = "cand_profile_skills_primary", schema = "marketplace", uniqueConstraints = {
+@Table(name = "cand_profile_skills_primary", schema = "consultant_platform", uniqueConstraints = {
                 @UniqueConstraint(name = "uq_cand_profile_primary_skill_number", columnNames = { "cand_profile_id",
                                 "skill_number" }),
                 @UniqueConstraint(name = "uq_cand_profile_primary_skill_id", columnNames = { "cand_profile_id",
@@ -50,7 +50,7 @@ public class CandidateProfilePrimarySkillEntity {
         @Column(name = "competency_level_id", nullable = false)
         private Short skillLevelId;
 
-        @Formula("(select cl.competency_level_name from marketplace.competency_level_lookup cl where cl.competency_level_lookup_id = competency_level_id)")
+        @Formula("(select cl.competency_level_name from consultant_platform.competency_level_lookup cl where cl.competency_level_lookup_id = competency_level_id)")
         private String skillLevelName;
 
         protected CandidateProfilePrimarySkillEntity() {

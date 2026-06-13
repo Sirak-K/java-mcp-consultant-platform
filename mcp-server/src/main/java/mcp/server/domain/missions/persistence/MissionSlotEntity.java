@@ -15,7 +15,7 @@ import java.util.List;
 import mcp.server.domain.reference_data.persistence.CompetencyLevelLookupSupport;
 
 @Entity
-@Table(name = "mission_slot", schema = "marketplace")
+@Table(name = "mission_slot", schema = "consultant_platform")
 public class MissionSlotEntity {
 
     @Id

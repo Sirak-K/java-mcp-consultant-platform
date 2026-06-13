@@ -1,0 +1,68 @@
+{
+  "catalog_id": "cv_extraction_content_blocks",
+  "cv_extraction_content_blocks_version": "1.0.0",
+  "content_blocks_to_extract": [
+    {
+      "cv_content_block_key": "profile",
+      "cv_content_heading": "PROFIL",
+      "cv_content_block_meaning": "Sammanfattande kandidatprofil och tillgänglighetssignaler.",
+      "cv_content_block_typical_fields": [
+        "profile_summary",
+        "work_status",
+        "work_mode",
+        "location_flexibility"
+      ]
+    },
+    {
+      "cv_content_block_key": "education",
+      "cv_content_heading": "UTBILDNING",
+      "cv_content_block_meaning": "Utbildningar, institutioner och utbildningsperioder.",
+      "cv_content_block_typical_fields": [
+        "institution",
+        "field_of_study",
+        "start_date",
+        "end_date"
+      ]
+    },
+    {
+      "cv_content_block_key": "work_experience",
+      "cv_content_heading": "ARBETSLIVSERFARENHET",
+      "cv_content_block_meaning": "Tidigare roller, arbetsgivare, perioder och arbetsplatser.",
+      "cv_content_block_typical_fields": [
+        "job_title",
+        "company_name",
+        "start_date",
+        "end_date",
+        "currently_here",
+        "city",
+        "country"
+      ]
+    },
+    {
+      "cv_content_block_key": "skills",
+      "cv_content_heading": "KOMPETENSER",
+      "cv_content_block_meaning": "Tekniska eller yrkesmässiga kompetenser som kan matchas mot reference data.",
+      "cv_content_block_typical_fields": [
+        "skill_title",
+        "skill_level_name"
+      ]
+    },
+    {
+      "cv_content_block_key": "languages",
+      "cv_content_heading": "SPRÅKKUNSKAPER",
+      "cv_content_block_meaning": "Språk och språknivåer som kandidaten anger i CV:t.",
+      "cv_content_block_typical_fields": [
+        "language",
+        "proficiency"
+      ]
+    }
+  ],
+  "ignored_content_blocks": [
+    {
+      "cv_content_block_key": "references",
+      "cv_content_heading": "REFERENSER",
+      "cv_content_block_meaning": "Referenssektion som kan avgränsa CV-text men inte ska bli extraherad kandidatdata.",
+      "cv_content_block_typical_fields": []
+    }
+  ]
+}

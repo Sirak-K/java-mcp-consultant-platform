@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
  * JPA entity mapping the canonical {@code customer} table.
  */
 @Entity
-@Table(name = "customer", schema = "marketplace")
+@Table(name = "customer", schema = "consultant_platform")
 public class CustomerEntity {
 
     @Id

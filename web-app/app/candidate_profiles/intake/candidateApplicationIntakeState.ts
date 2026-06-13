@@ -2,10 +2,10 @@ import type {
   CandidateCompanyIdentityOptionView,
 } from "~/candidate_profiles/types";
 import { MAX_CANDIDATE_ROLE_EXPERIENCE_YEARS } from "~/candidate_profiles/profile_form/candidateProfileFormState";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 export function hasSkillReferenceOptions(
-  data: MarketplaceReferenceData | null,
+  data: ReferenceData | null,
 ) {
   return Boolean(data?.skills.length && data.skillLevels.length);
 }
@@ -234,7 +234,7 @@ export function normalizeCandidateRoleExperienceYearsText(value: string): string
 }
 
 export function defaultCandidateRoleFormFields(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): CandidateRoleFormFields {
   return {
     roleId: referenceData?.roles[0]?.id ?? 0,
@@ -243,7 +243,7 @@ export function defaultCandidateRoleFormFields(
 }
 
 export function defaultCandidateSkillFormFields(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): CandidateSkillFormFields {
   const skill = referenceData?.skills[0];
   return {

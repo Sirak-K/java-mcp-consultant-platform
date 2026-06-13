@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import java.time.Instant;
 
 @Entity
-@Table(name = "mission_proposal_outcome", schema = "marketplace")
+@Table(name = "mission_proposal_outcome", schema = "consultant_platform")
 public class MissionProposalOutcomeEntity {
 
     @Id

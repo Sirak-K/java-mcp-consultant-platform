@@ -12,7 +12,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
 
 @Entity
-@Table(name = "candidate_to_slot_match", schema = "marketplace", uniqueConstraints = {
+@Table(name = "candidate_to_slot_match", schema = "consultant_platform", uniqueConstraints = {
     @UniqueConstraint(name = "uk_candidate_to_slot_match_profile_slot", columnNames = { "cand_profile_id",
         "mission_slot_id" })
 }, indexes = {

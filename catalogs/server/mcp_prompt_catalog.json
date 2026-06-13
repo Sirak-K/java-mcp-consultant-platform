@@ -1,0 +1,17 @@
+{
+  "catalog_id": "mcp_prompt_catalog",
+  "mcp_prompt_catalog_version": "1.0.0",
+  "mcp_prompts": [
+    {
+      "mcp_prompt_name": "candidatePresentation.generateDraftPrompt",
+      "mcp_prompt_description": "Server-owned Candidate Presentation generation prompt for customer-facing draft generation.",
+      "mcp_prompt_arguments": [],
+      "mcp_prompt_recommended_tools": [
+        "candidatePresentation.collectEvidence",
+        "candidatePresentation.getGenerationContract",
+        "candidatePresentation.recordGeneratedContent",
+        "candidatePresentation.recordGenerationFailure"
+      ]
+    }
+  ]
+}

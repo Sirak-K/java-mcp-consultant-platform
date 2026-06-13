@@ -22,13 +22,13 @@ final class CandidateCvSkillTextDetector {
 
   private final SkillCatalogLookup skillLookup;
   private final CompetencyLevelLookupJpaRepo skillLevelRepo;
-  private final CandidateProfileTextDetectionCatalogService textDetectionCatalogService;
+  private final CandidateCvExtractionCatalogService textDetectionCatalogService;
   private final CandidateCvTextMatcher textMatcher;
 
   CandidateCvSkillTextDetector(
       SkillCatalogLookup skillLookup,
       CompetencyLevelLookupJpaRepo skillLevelRepo,
-      CandidateProfileTextDetectionCatalogService textDetectionCatalogService,
+      CandidateCvExtractionCatalogService textDetectionCatalogService,
       CandidateCvTextMatcher textMatcher) {
     this.skillLookup = skillLookup;
     this.skillLevelRepo = skillLevelRepo;

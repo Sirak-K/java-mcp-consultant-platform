@@ -7,7 +7,7 @@ import type {
   CandidateSkillWorkingCopyInput,
   CandidateWorkExperienceWorkingCopyInput,
 } from "~/candidate_profiles/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 export type CandidateApplicationEditWorkingCopy = Omit<
   CandidateApplicationEditInput,
@@ -60,7 +60,7 @@ export function currentlyWorkingHereAvailable(
 }
 
 export function defaultCandidateRoleWorkingCopy(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): CandidateRoleWorkingCopyInput {
   const role = referenceData?.roles[0];
   return {
@@ -71,7 +71,7 @@ export function defaultCandidateRoleWorkingCopy(
 }
 
 export function defaultCandidateSkillWorkingCopy(
-  referenceData: MarketplaceReferenceData | null,
+  referenceData: ReferenceData | null,
 ): CandidateSkillWorkingCopyInput {
   const skill = referenceData?.skills[0];
   const level = referenceData?.skillLevels[0];

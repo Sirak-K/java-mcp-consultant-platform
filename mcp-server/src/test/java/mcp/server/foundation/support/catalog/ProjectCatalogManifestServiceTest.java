@@ -15,6 +15,6 @@ final class ProjectCatalogManifestServiceTest {
 
     ProjectCatalogManifestService.ValidationReport report = service.validateManifest();
 
-    assertThat(report.catalogCount()).isEqualTo(12);
+    assertThat(report.catalogCount()).isEqualTo(15);
   }
 }

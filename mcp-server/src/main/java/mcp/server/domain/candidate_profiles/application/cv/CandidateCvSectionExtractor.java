@@ -10,11 +10,11 @@ import static mcp.server.domain.shared_kernel.validation.ApplicationInputValidat
 @Component
 final class CandidateCvSectionExtractor {
 
-  private final CandidateProfileTextDetectionCatalogService textDetectionCatalogService;
+  private final CandidateCvExtractionCatalogService textDetectionCatalogService;
   private final CandidateCvTextMatcher textMatcher;
 
   CandidateCvSectionExtractor(
-      CandidateProfileTextDetectionCatalogService textDetectionCatalogService,
+      CandidateCvExtractionCatalogService textDetectionCatalogService,
       CandidateCvTextMatcher textMatcher) {
     this.textDetectionCatalogService = textDetectionCatalogService;
     this.textMatcher = textMatcher;

@@ -24,7 +24,7 @@ public interface CandidateToSlotMatchJpaRepository extends JpaRepository<Candida
                         Long missionSlotId);
 
         @Modifying
-        @Query(value = "INSERT INTO marketplace.candidate_to_slot_match ("
+        @Query(value = "INSERT INTO consultant_platform.candidate_to_slot_match ("
                         + "cand_profile_id, mission_slot_id, match_score, match_label, "
                         + "role_matched, work_mode_matched, matched_skill_count, matched_skill_ids, "
                         + "matched_skill_titles, created_at"

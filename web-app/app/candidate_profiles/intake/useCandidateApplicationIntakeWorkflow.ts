@@ -52,7 +52,7 @@ import type {
   CandidateCvProfileWorkingCopyInput,
   CandidateCvPreviewView,
 } from "~/candidate_profiles/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 import type { ApiError } from "~/shared/api/apiErrors";
 
 export function useCandidateApplicationIntakeWorkflow() {
@@ -84,7 +84,7 @@ export function useCandidateApplicationIntakeWorkflow() {
     string | null
   >(null);
   const [referenceData, setReferenceData] =
-    useState<MarketplaceReferenceData | null>(null);
+    useState<ReferenceData | null>(null);
   const [loadingReferences, setLoadingReferences] = useState(true);
   const [previewingCv, setPreviewingCv] = useState(false);
   const [cvPreviewStatus, setCvPreviewStatus] = useState<string | null>(null);

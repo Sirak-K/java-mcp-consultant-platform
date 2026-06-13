@@ -1,0 +1,146 @@
+{
+  "catalog_id": "mcp_tool_catalog",
+  "mcp_tool_catalog_version": "1.0.0",
+  "mcp_tools": [
+    {
+      "mcp_tool_name": "ops.healthcheck",
+      "mcp_tool_description": "Foundation liveness ping capability.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "candidateApplication.inspectArchive",
+      "mcp_tool_description": "Inspect a candidate application archive.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "candidatePresentation.collectEvidence",
+      "mcp_tool_description": "Collect evidence for candidate presentation generation.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "candidatePresentation.getGenerationContract",
+      "mcp_tool_description": "Return the server-owned candidate presentation generation contract.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "candidatePresentation.recordGeneratedContent",
+      "mcp_tool_description": "Record generated candidate presentation content.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "candidatePresentation.recordGenerationFailure",
+      "mcp_tool_description": "Record a failed candidate presentation generation attempt.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "companyIdentity.lookup",
+      "mcp_tool_description": "Resolve company identity from supplied work-experience text.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "inspectMatchScoreBreakdown",
+      "mcp_tool_description": "Inspect score breakdown details for a candidate-to-mission match.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "matchDiscovery.inspect",
+      "mcp_tool_description": "Inspect discovered candidate-to-mission matches.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "matchNotifications.inspectPreviews",
+      "mcp_tool_description": "Inspect match notification previews.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "matchNotifications.previewMatch",
+      "mcp_tool_description": "Preview the match notification for one match.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "matchNotifications.sendEmail",
+      "mcp_tool_description": "Send a match notification email.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "missionProposal.previewFromText",
+      "mcp_tool_description": "Preview a mission proposal from supplied mission text.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    },
+    {
+      "mcp_tool_name": "registeredCandidateProfile.inspect",
+      "mcp_tool_description": "Inspect a registered candidate profile.",
+      "mcp_tool_input_schema": {
+        "type": "object"
+      },
+      "mcp_tool_output_schema": {
+        "type": "object"
+      }
+    }
+  ]
+}

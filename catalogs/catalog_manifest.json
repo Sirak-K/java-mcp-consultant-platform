@@ -3,19 +3,40 @@
   "catalog_manifest_version": "1.0.0",
   "catalogs": [
     {
-      "catalog_id": "mcp_resource_manifest_catalog",
-      "path": "foundation/mcp_resources/mcp_resource_manifest_catalog.json",
-      "owner_surface": "foundation",
+      "catalog_id": "mcp_tool_catalog",
+      "path": "server/mcp_tool_catalog.json",
+      "owner_surface": "server",
       "owner_package": "mcp.server.foundation.resource_interface",
-      "catalog_kind": "mcp_resource_manifest",
-      "responsibility": "Canonical MCP resource manifest exposed by the server resource interface.",
+      "catalog_kind": "mcp_tool_catalog",
+      "responsibility": "Catalog of server-exposed MCP tools and their client-facing contract metadata.",
       "required_root_fields": [
         "catalog_id",
-        "mcp_resource_manifest_catalog_version",
+        "mcp_tool_catalog_version",
+        "mcp_tools"
+      ],
+      "runtime_consumers": [
+        "mcp.server.foundation.resource_interface.McpToolCatalogService",
+        "mcp.server.foundation.resource_interface.ServerCapabilitiesManifestResourceProvider"
+      ],
+      "mcp_exposure": {
+        "exposed": false,
+        "resource_uris": []
+      }
+    },
+    {
+      "catalog_id": "mcp_resource_catalog",
+      "path": "server/mcp_resource_catalog.json",
+      "owner_surface": "server",
+      "owner_package": "mcp.server.foundation.resource_interface",
+      "catalog_kind": "mcp_resource_catalog",
+      "responsibility": "Catalog of server-exposed MCP resources used by the resource interface.",
+      "required_root_fields": [
+        "catalog_id",
+        "mcp_resource_catalog_version",
         "mcp_resources"
       ],
       "runtime_consumers": [
-        "mcp.server.foundation.resource_interface.McpResourceManifestCatalogService",
+        "mcp.server.foundation.resource_interface.McpResourceCatalogService",
         "mcp.server.foundation.spring_integration.SpringMcpResrcCfg"
       ],
       "mcp_exposure": {
@@ -24,115 +45,110 @@
       }
     },
     {
-      "catalog_id": "marketplace_capability_contract_catalog",
-      "path": "foundation/marketplace_capabilities/marketplace_capability_contract_catalog.json",
-      "owner_surface": "foundation",
+      "catalog_id": "mcp_prompt_catalog",
+      "path": "server/mcp_prompt_catalog.json",
+      "owner_surface": "server",
       "owner_package": "mcp.server.foundation.resource_interface",
-      "catalog_kind": "marketplace_capability_contract",
-      "responsibility": "Marketplace capability contract metadata mapped to endpoints, MCP surfaces, web surfaces, and persistence anchors.",
+      "catalog_kind": "mcp_prompt_catalog",
+      "responsibility": "Catalog of server-exposed MCP prompts and their argument metadata.",
       "required_root_fields": [
         "catalog_id",
-        "marketplace_capability_catalog_version",
-        "marketplace_capabilities"
+        "mcp_prompt_catalog_version",
+        "mcp_prompts"
       ],
       "runtime_consumers": [
-        "mcp.server.foundation.resource_interface.MarketplaceCapabilityCatalogService",
-        "mcp.server.foundation.resource_interface.MarketplaceCapabilityCatalogResourceProvider"
+        "mcp.server.foundation.resource_interface.McpPromptCatalogService",
+        "mcp.server.foundation.resource_interface.ServerCapabilitiesManifestResourceProvider"
+      ],
+      "mcp_exposure": {
+        "exposed": false,
+        "resource_uris": []
+      }
+    },
+    {
+      "catalog_id": "server_capabilities_manifest",
+      "path": "server/server_capabilities_manifest.json",
+      "owner_surface": "server",
+      "owner_package": "mcp.server.foundation.resource_interface",
+      "catalog_kind": "server_capabilities_manifest",
+      "responsibility": "Server capability manifest mapped to backend endpoints, MCP primitives, React surfaces, and persistence anchors.",
+      "required_root_fields": [
+        "catalog_id",
+        "server_capabilities_manifest_version",
+        "server_capabilities"
+      ],
+      "runtime_consumers": [
+        "mcp.server.foundation.resource_interface.ServerCapabilitiesManifestService",
+        "mcp.server.foundation.resource_interface.ServerCapabilitiesManifestResourceProvider"
       ],
       "mcp_exposure": {
         "exposed": true,
         "resource_uris": [
-          "resource://marketplace/capabilities"
+          "resource://server/capabilities"
         ]
       }
     },
     {
-      "catalog_id": "operating_surface_description_catalog",
-      "path": "foundation/runtime_contracts/operating_surface_description_catalog.json",
-      "owner_surface": "foundation",
-      "owner_package": "mcp.server.foundation.server_process.orchestration",
-      "catalog_kind": "runtime_contract_description",
-      "responsibility": "Runtime operating-surface descriptions used by server-process orchestration.",
+      "catalog_id": "cv_extraction_text_detection",
+      "path": "cv_extraction/cv_extraction_text_detection.json",
+      "owner_surface": "cv_extraction",
+      "owner_package": "mcp.server.domain.candidate_profiles.application.cv",
+      "catalog_kind": "cv_extraction_text_detection",
+      "responsibility": "CV extraction text-detection terms and aliases used by candidate CV intake.",
       "required_root_fields": [
         "catalog_id",
-        "runtime_contract_catalog_version",
-        "operating_surface_descriptions"
-      ],
-      "runtime_consumers": [
-        "mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService"
-      ],
-      "mcp_exposure": {
-        "exposed": true,
-        "resource_uris": [
-          "resource://ops/runtime-overview"
-        ]
-      }
-    },
-    {
-      "catalog_id": "request_lifecycle_description_catalog",
-      "path": "foundation/runtime_contracts/request_lifecycle_description_catalog.json",
-      "owner_surface": "foundation",
-      "owner_package": "mcp.server.foundation.server_process.orchestration",
-      "catalog_kind": "runtime_contract_description",
-      "responsibility": "Runtime request-lifecycle descriptions used by server-process orchestration.",
-      "required_root_fields": [
-        "catalog_id",
-        "runtime_contract_catalog_version",
-        "request_lifecycle_descriptions"
-      ],
-      "runtime_consumers": [
-        "mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService"
-      ],
-      "mcp_exposure": {
-        "exposed": true,
-        "resource_uris": [
-          "resource://ops/runtime-overview"
-        ]
-      }
-    },
-    {
-      "catalog_id": "runtime_session_lifecycle_description_catalog",
-      "path": "foundation/runtime_contracts/runtime_session_lifecycle_description_catalog.json",
-      "owner_surface": "foundation",
-      "owner_package": "mcp.server.foundation.server_process.orchestration",
-      "catalog_kind": "runtime_contract_description",
-      "responsibility": "Runtime session-lifecycle descriptions used by server-process orchestration.",
-      "required_root_fields": [
-        "catalog_id",
-        "runtime_contract_catalog_version",
-        "runtime_session_lifecycle_descriptions"
-      ],
-      "runtime_consumers": [
-        "mcp.server.foundation.server_process.orchestration.RuntimeContractDescriptionCatalogService"
-      ],
-      "mcp_exposure": {
-        "exposed": true,
-        "resource_uris": [
-          "resource://ops/runtime-overview"
-        ]
-      }
-    },
-    {
-      "catalog_id": "candidate_profile_text_detection_catalog",
-      "path": "candidate_profiles/text_detection/candidate_profile_text_detection_catalog.json",
-      "owner_surface": "candidate_profiles",
-      "owner_package": "mcp.server.domain.candidate_profiles",
-      "catalog_kind": "text_detection_semantics",
-      "responsibility": "Semantic text-detection terms for candidate profile and CV intake.",
-      "required_root_fields": [
-        "catalog_id",
-        "candidate_profile_text_detection_catalog_version",
+        "cv_extraction_text_detection_version",
         "skill_title_aliases",
         "role_title_aliases",
-        "cv_section_headings",
         "candidate_work_mode_signals",
-        "location_heading_terms",
+        "location_related_terms",
         "swedish_city_names",
         "country_terms",
         "swedish_language_clues"
       ],
       "runtime_consumers": [
-        "mcp.server.domain.candidate_profiles.application.cv.CandidateProfileTextDetectionCatalogService"
+        "mcp.server.domain.candidate_profiles.application.cv.CandidateCvExtractionCatalogService"
+      ],
+      "mcp_exposure": {
+        "exposed": false,
+        "resource_uris": []
+      }
+    },
+    {
+      "catalog_id": "cv_extraction_content_blocks",
+      "path": "cv_extraction/cv_extraction_content_blocks.json",
+      "owner_surface": "cv_extraction",
+      "owner_package": "mcp.server.domain.candidate_profiles.application.cv",
+      "catalog_kind": "cv_extraction_content_blocks",
+      "responsibility": "CV content blocks and headings used to split extracted CV text into candidate working-copy sections.",
+      "required_root_fields": [
+        "catalog_id",
+        "cv_extraction_content_blocks_version",
+        "content_blocks_to_extract",
+        "ignored_content_blocks"
+      ],
+      "runtime_consumers": [
+        "mcp.server.domain.candidate_profiles.application.cv.CandidateCvExtractionCatalogService"
+      ],
+      "mcp_exposure": {
+        "exposed": false,
+        "resource_uris": []
+      }
+    },
+    {
+      "catalog_id": "cv_extraction_content_constraints",
+      "path": "cv_extraction/cv_extraction_content_constraints.json",
+      "owner_surface": "cv_extraction",
+      "owner_package": "mcp.server.domain.candidate_profiles.application.cv",
+      "catalog_kind": "cv_extraction_content_constraints",
+      "responsibility": "CV extraction constraints that define information the intake flow must not infer from CV text.",
+      "required_root_fields": [
+        "catalog_id",
+        "cv_extraction_content_constraints_version",
+        "do_not_infer"
+      ],
+      "runtime_consumers": [
+        "mcp.server.domain.candidate_profiles.application.cv.CandidateCvExtractionCatalogService"
       ],
       "mcp_exposure": {
         "exposed": false,
@@ -141,7 +157,7 @@
     },
     {
       "catalog_id": "mission_proposal_text_detection_catalog",
-      "path": "missions/text_detection/mission_proposal_text_detection_catalog.json",
+      "path": "missions/mission_proposal_text_detection_catalog.json",
       "owner_surface": "missions",
       "owner_package": "mcp.server.domain.missions",
       "catalog_kind": "text_detection_semantics",
@@ -167,7 +183,7 @@
     },
     {
       "catalog_id": "match_notification_email_template_catalog",
-      "path": "match_notifications/email_templates/match_notification_email_template_catalog.json",
+      "path": "match_notifications/match_notification_email_template_catalog.json",
       "owner_surface": "match_notifications",
       "owner_package": "mcp.server.domain.match_notifications",
       "catalog_kind": "email_template",
@@ -192,66 +208,20 @@
       }
     },
     {
-      "catalog_id": "candidate_presentation_generation_contract_description_catalog",
-      "path": "candidate_presentation/generation/candidate_presentation_generation_contract_description_catalog.json",
+      "catalog_id": "generation_content_structure",
+      "path": "candidate_presentation/generation/generation_content_structure.json",
       "owner_surface": "candidate_presentation",
       "owner_package": "mcp.server.domain.candidate_presentation",
-      "catalog_kind": "candidate_presentation_generation_contract",
-      "responsibility": "Candidate presentation generation contract descriptions exposed to generation flow consumers.",
+      "catalog_kind": "candidate_presentation_generation_content_structure",
+      "responsibility": "Candidate presentation section structure used to materialize generated artifacts.",
       "required_root_fields": [
         "catalog_id",
-        "candidate_presentation_generation_contract_description_catalog_version",
-        "candidate_presentation_generation_contract_descriptions"
+        "generation_content_structure_version",
+        "customer_facing_sections",
+        "ops_review_sections"
       ],
       "runtime_consumers": [
         "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
-        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService"
-      ],
-      "mcp_exposure": {
-        "exposed": true,
-        "resource_uris": [
-          "resource://candidate-presentation/generation-contract"
-        ]
-      }
-    },
-    {
-      "catalog_id": "candidate_presentation_generation_guidance_catalog",
-      "path": "candidate_presentation/generation/candidate_presentation_generation_guidance_catalog.json",
-      "owner_surface": "candidate_presentation",
-      "owner_package": "mcp.server.domain.candidate_presentation",
-      "catalog_kind": "candidate_presentation_generation_guidance",
-      "responsibility": "Candidate presentation generation guidance consumed by the presentation generation flow.",
-      "required_root_fields": [
-        "catalog_id",
-        "candidate_presentation_generation_guidance_catalog_version",
-        "candidate_presentation_generation_guidance"
-      ],
-      "runtime_consumers": [
-        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
-        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService"
-      ],
-      "mcp_exposure": {
-        "exposed": true,
-        "resource_uris": [
-          "resource://candidate-presentation/generation-contract"
-        ]
-      }
-    },
-    {
-      "catalog_id": "candidate_presentation_section_semantics_catalog",
-      "path": "candidate_presentation/generation/candidate_presentation_section_semantics_catalog.json",
-      "owner_surface": "candidate_presentation",
-      "owner_package": "mcp.server.domain.candidate_presentation",
-      "catalog_kind": "candidate_presentation_section_semantics",
-      "responsibility": "Candidate presentation section semantics used to materialize generation artifacts.",
-      "required_root_fields": [
-        "catalog_id",
-        "candidate_presentation_section_semantics_catalog_version",
-        "candidate_presentation_section_semantics"
-      ],
-      "runtime_consumers": [
-        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
-        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService",
         "mcp.server.domain.candidate_presentation.application.materialization.CandidatePresentationArtifactMaterializationService"
       ],
       "mcp_exposure": {
@@ -262,12 +232,114 @@
       }
     },
     {
+      "catalog_id": "generation_content_constraints",
+      "path": "candidate_presentation/generation/generation_content_constraints.json",
+      "owner_surface": "candidate_presentation",
+      "owner_package": "mcp.server.domain.candidate_presentation",
+      "catalog_kind": "candidate_presentation_generation_content_constraints",
+      "responsibility": "Candidate presentation generation constraints used to validate customer-facing generated text.",
+      "required_root_fields": [
+        "catalog_id",
+        "generation_content_constraints_version",
+        "customer_facing_disallowed_runtime_terms",
+        "customer_facing_disallowed_text_fragments",
+        "customer_facing_disallowed_unicode_scripts"
+      ],
+      "runtime_consumers": [
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService"
+      ],
+      "mcp_exposure": {
+        "exposed": true,
+        "resource_uris": [
+          "resource://candidate-presentation/generation-contract"
+        ]
+      }
+    },
+    {
+      "catalog_id": "generation_policy",
+      "path": "candidate_presentation/generation/generation_policy.json",
+      "owner_surface": "candidate_presentation",
+      "owner_package": "mcp.server.domain.candidate_presentation",
+      "catalog_kind": "candidate_presentation_generation_policy",
+      "responsibility": "Candidate presentation generation policy used as structured generation context.",
+      "required_root_fields": [
+        "catalog_id",
+        "generation_policy_version",
+        "guidance_goal",
+        "grounding_rules",
+        "customer_ready_rules",
+        "ops_review_rules",
+        "evidence_trace_rules",
+        "disallowed_generation_behaviors"
+      ],
+      "runtime_consumers": [
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService"
+      ],
+      "mcp_exposure": {
+        "exposed": true,
+        "resource_uris": [
+          "resource://candidate-presentation/generation-contract"
+        ]
+      }
+    },
+    {
+      "catalog_id": "generation_evidence_traces",
+      "path": "candidate_presentation/generation/generation_evidence_traces.json",
+      "owner_surface": "candidate_presentation",
+      "owner_package": "mcp.server.domain.candidate_presentation",
+      "catalog_kind": "candidate_presentation_generation_evidence_traces",
+      "responsibility": "Candidate presentation evidence trace fields used to validate generated evidence mappings.",
+      "required_root_fields": [
+        "catalog_id",
+        "generation_evidence_traces_version",
+        "evidence_trace_fields"
+      ],
+      "runtime_consumers": [
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService"
+      ],
+      "mcp_exposure": {
+        "exposed": true,
+        "resource_uris": [
+          "resource://candidate-presentation/generation-contract"
+        ]
+      }
+    },
+    {
+      "catalog_id": "generation_output_contract_schema",
+      "path": "candidate_presentation/generation/generation_output_contract.schema.json",
+      "owner_surface": "candidate_presentation",
+      "owner_package": "mcp.server.domain.candidate_presentation",
+      "catalog_kind": "candidate_presentation_generation_output_contract_schema",
+      "responsibility": "Candidate presentation generation output contract and JSON Schema used by MCP generation consumers.",
+      "required_root_fields": [
+        "catalog_id",
+        "generation_output_contract_schema_version",
+        "contract_name",
+        "response_format_type",
+        "top_level_fields",
+        "json_schema"
+      ],
+      "runtime_consumers": [
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationCatalogService",
+        "mcp.server.domain.candidate_presentation.application.generation.CandidatePresentationGenerationContractService"
+      ],
+      "mcp_exposure": {
+        "exposed": true,
+        "resource_uris": [
+          "resource://candidate-presentation/generation-contract"
+        ]
+      }
+    },
+    {
       "catalog_id": "runtime_triage_symptom_catalog",
-      "path": "observability/runtime_triage/runtime_triage_symptom_catalog.json",
-      "owner_surface": "observability",
+      "path": "system_operations/runtime_triage_symptom_catalog.json",
+      "owner_surface": "system_operations",
       "owner_package": "mcp.server.foundation.observability.triage",
       "catalog_kind": "runtime_triage_symptoms",
-      "responsibility": "Runtime triage symptom semantics used by observability triage support.",
+      "responsibility": "Runtime triage symptom semantics used by system operations diagnostics support.",
       "required_root_fields": [
         "catalog_id",
         "runtime_triage_catalog_version",

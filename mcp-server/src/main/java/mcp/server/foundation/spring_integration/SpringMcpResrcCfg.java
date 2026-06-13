@@ -12,10 +12,13 @@ import mcp.server.domain.reference_data.resource.SkillCatalogResourceProvider;
 import mcp.server.foundation.audit.AuditEntryJpaRepo;
 import mcp.server.foundation.control_plane.PlatformControlPlaneStore;
 import mcp.server.foundation.observability.runtime.RTVisibilityService;
-import mcp.server.foundation.resource_interface.MarketplaceCapabilityCatalogResourceProvider;
-import mcp.server.foundation.resource_interface.MarketplaceCapabilityCatalogService;
+import mcp.server.foundation.prompt_interface.PromptReg;
+import mcp.server.foundation.resource_interface.ServerCapabilitiesManifestResourceProvider;
+import mcp.server.foundation.resource_interface.ServerCapabilitiesManifestService;
+import mcp.server.foundation.resource_interface.McpPromptCatalogService;
 import mcp.server.foundation.resource_interface.RecentAuditResrcProvid;
-import mcp.server.foundation.resource_interface.McpResourceManifestCatalogService;
+import mcp.server.foundation.resource_interface.McpResourceCatalogService;
+import mcp.server.foundation.resource_interface.McpToolCatalogService;
 import mcp.server.foundation.resource_interface.ResrcDefin;
 import mcp.server.foundation.resource_interface.ResrcProvid;
 import mcp.server.foundation.resource_interface.ResrcReg;
@@ -34,14 +37,14 @@ import java.util.Objects;
  * MCP resource surface wiring.
  *
  * <p>
- * Discovery metadata is loaded from the resource manifest catalog, while this
+ * Discovery metadata is loaded from the MCP resource catalog, while this
  * configuration owns provider binding and dependency wiring.
  */
 @Configuration
 public class SpringMcpResrcCfg {
 
         private static final String RESOURCE_KEY_TOOLS_CATALOG = "tools_catalog";
-        private static final String RESOURCE_KEY_MARKETPLACE_CAPABILITIES = "marketplace_capabilities";
+        private static final String RESOURCE_KEY_SERVER_CAPABILITIES = "server_capabilities";
         private static final String RESOURCE_KEY_OPS_RUNTIME_OVERVIEW = "ops_runtime_overview";
         private static final String RESOURCE_KEY_CONSULTANT_ROLES = "consultant_roles";
         private static final String RESOURCE_KEY_SKILL_LEVELS = "skill_levels";
@@ -50,8 +53,11 @@ public class SpringMcpResrcCfg {
         private static final String RESOURCE_KEY_CANDIDATE_PRESENTATION_GENERATION_CONTRACT = "candidate_presentation_generation_contract";
 
         private final ResrcReg resrcReg;
-        private final McpResourceManifestCatalogService resourceManifestCatalogService;
+        private final McpResourceCatalogService resourceCatalogService;
         private final ToolReg toolReg;
+        private final PromptReg promptReg;
+        private final McpToolCatalogService toolCatalogService;
+        private final McpPromptCatalogService promptCatalogService;
         private final RTVisibilityService runtimeVisibilityService;
         private final PlatformControlPlaneStore platformControlPlaneStore;
         private final CustomerDataModeRTPolicy customerDataModeRTPolicy;
@@ -59,15 +65,18 @@ public class SpringMcpResrcCfg {
         private final RoleJpaRepo roleJpaRepo;
         private final SkillCatalogLookup skillCatalogLookup;
         private final CompetencyLevelLookupJpaRepo competencyLevelLookupJpaRepo;
-        private final MarketplaceCapabilityCatalogService marketplaceCapabilityCatalogService;
+        private final ServerCapabilitiesManifestService serverCapabilitiesManifestService;
         private final CandidatePresentationGenerationContractService candidatePresentationGenerationContractService;
         private final String applicationName;
         private final String applicationVersion;
 
         public SpringMcpResrcCfg(
                         ResrcReg resrcReg,
-                        McpResourceManifestCatalogService resourceManifestCatalogService,
+                        McpResourceCatalogService resourceCatalogService,
                         ToolReg toolReg,
+                        PromptReg promptReg,
+                        McpToolCatalogService toolCatalogService,
+                        McpPromptCatalogService promptCatalogService,
                         RTVisibilityService runtimeVisibilityService,
                         PlatformControlPlaneStore platformControlPlaneStore,
                         CustomerDataModeRTPolicy customerDataModeRTPolicy,
@@ -75,16 +84,19 @@ public class SpringMcpResrcCfg {
                         RoleJpaRepo roleJpaRepo,
                         SkillCatalogLookup skillCatalogLookup,
                         CompetencyLevelLookupJpaRepo competencyLevelLookupJpaRepo,
-                        MarketplaceCapabilityCatalogService marketplaceCapabilityCatalogService,
+                        ServerCapabilitiesManifestService serverCapabilitiesManifestService,
                         CandidatePresentationGenerationContractService candidatePresentationGenerationContractService,
                         @Value("${spring.application.name:mcp-server}") String applicationName,
                         @Value("${mcp.server.version:dev}") String applicationVersion) {
 
                 this.resrcReg = Objects.requireNonNull(resrcReg, "resrcReg");
-                this.resourceManifestCatalogService = Objects.requireNonNull(
-                                resourceManifestCatalogService,
-                                "resourceManifestCatalogService");
+                this.resourceCatalogService = Objects.requireNonNull(
+                                resourceCatalogService,
+                                "resourceCatalogService");
                 this.toolReg = Objects.requireNonNull(toolReg, "toolReg");
+                this.promptReg = Objects.requireNonNull(promptReg, "promptReg");
+                this.toolCatalogService = Objects.requireNonNull(toolCatalogService, "toolCatalogService");
+                this.promptCatalogService = Objects.requireNonNull(promptCatalogService, "promptCatalogService");
                 this.runtimeVisibilityService = Objects.requireNonNull(runtimeVisibilityService,
                                 "runtimeVisibilityService");
                 this.platformControlPlaneStore = Objects.requireNonNull(platformControlPlaneStore,
@@ -96,9 +108,9 @@ public class SpringMcpResrcCfg {
                 this.skillCatalogLookup = Objects.requireNonNull(skillCatalogLookup, "skillCatalogLookup");
                 this.competencyLevelLookupJpaRepo = Objects.requireNonNull(competencyLevelLookupJpaRepo,
                                 "competencyLevelLookupJpaRepo");
-                this.marketplaceCapabilityCatalogService = Objects.requireNonNull(
-                                marketplaceCapabilityCatalogService,
-                                "marketplaceCapabilityCatalogService");
+                this.serverCapabilitiesManifestService = Objects.requireNonNull(
+                                serverCapabilitiesManifestService,
+                                "serverCapabilitiesManifestService");
                 this.candidatePresentationGenerationContractService = Objects.requireNonNull(
                                 candidatePresentationGenerationContractService,
                                 "candidatePresentationGenerationContractService");
@@ -126,13 +138,16 @@ public class SpringMcpResrcCfg {
                                                                 resourceName(RESOURCE_KEY_TOOLS_CATALOG),
                                                                 toolReg)),
                                 resourceDefinition(
-                                                RESOURCE_KEY_MARKETPLACE_CAPABILITIES,
-                                                new MarketplaceCapabilityCatalogResourceProvider(
-                                                                resourceUri(RESOURCE_KEY_MARKETPLACE_CAPABILITIES),
-                                                                resourceName(RESOURCE_KEY_MARKETPLACE_CAPABILITIES),
+                                                RESOURCE_KEY_SERVER_CAPABILITIES,
+                                                new ServerCapabilitiesManifestResourceProvider(
+                                                                resourceUri(RESOURCE_KEY_SERVER_CAPABILITIES),
+                                                                resourceName(RESOURCE_KEY_SERVER_CAPABILITIES),
                                                                 resrcReg,
                                                                 toolReg,
-                                                                marketplaceCapabilityCatalogService)),
+                                                                promptReg,
+                                                                toolCatalogService,
+                                                                promptCatalogService,
+                                                                serverCapabilitiesManifestService)),
                                 resourceDefinition(
                                                 RESOURCE_KEY_OPS_RUNTIME_OVERVIEW,
                                                 new RTOverviewResrcProvid(
@@ -186,17 +201,17 @@ public class SpringMcpResrcCfg {
                         String resourceKey,
                         ResrcProvid provider) {
 
-                return resourceManifestCatalogService.resourceDefinition(
+                return resourceCatalogService.resourceDefinition(
                                 resourceKey,
                                 provider);
         }
 
         private String resourceUri(String resourceKey) {
-                return resourceManifestCatalogService.resourceUri(resourceKey);
+                return resourceCatalogService.resourceUri(resourceKey);
         }
 
         private String resourceName(String resourceKey) {
-                return resourceManifestCatalogService.resourceName(resourceKey);
+                return resourceCatalogService.resourceName(resourceKey);
         }
 
         private void registerResource(ResrcDefin resource) {

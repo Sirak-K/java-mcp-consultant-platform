@@ -1,82 +1,88 @@
 {
-  "catalog_id": "candidate_profile_text_detection_catalog",
-  "candidate_profile_text_detection_catalog_version": "1.0.0",
+  "catalog_id": "cv_extraction_text_detection",
+  "cv_extraction_text_detection_version": "1.0.0",
   "skill_title_aliases": [
     {
       "canonical_title": "Agile",
-      "aliases": ["Agil utveckling"]
+      "canonical_title_aliases": [
+        "Agil utveckling"
+      ]
     },
     {
       "canonical_title": "JavaScript",
-      "aliases": ["JS"]
+      "canonical_title_aliases": [
+        "JS"
+      ]
     },
     {
       "canonical_title": "Microsoft Office",
-      "aliases": ["Microsoft Office 365"]
+      "canonical_title_aliases": [
+        "Microsoft Office 365"
+      ]
     },
     {
       "canonical_title": "Model Context Protocol",
-      "aliases": ["MCP"]
+      "canonical_title_aliases": [
+        "MCP"
+      ]
     },
     {
       "canonical_title": "Spring Framework",
-      "aliases": ["Spring", "Spring Boot"]
+      "canonical_title_aliases": [
+        "Spring",
+        "Spring Boot"
+      ]
     },
     {
       "canonical_title": "TypeScript",
-      "aliases": ["TS"]
+      "canonical_title_aliases": [
+        "TS"
+      ]
     }
   ],
   "role_title_aliases": [
     {
       "canonical_title": "Full Stack Developer",
-      "aliases": ["Fullstack Developer", "Full-stack Developer"]
-    }
-  ],
-  "cv_section_headings": [
-    {
-      "section_key": "profile",
-      "heading": "PROFIL"
-    },
-    {
-      "section_key": "education",
-      "heading": "UTBILDNING"
-    },
-    {
-      "section_key": "work_experience",
-      "heading": "ARBETSLIVSERFARENHET"
-    },
-    {
-      "section_key": "skills",
-      "heading": "KOMPETENSER"
-    },
-    {
-      "section_key": "languages",
-      "heading": "SPRÅKKUNSKAPER"
-    },
-    {
-      "section_key": "references",
-      "heading": "REFERENSER"
+      "canonical_title_aliases": [
+        "Fullstack Developer",
+        "Full-stack Developer"
+      ]
     }
   ],
   "candidate_work_mode_signals": [
     {
       "display_value": "Hybrid",
-      "terms": ["hybrid"],
-      "profile_summary_terms": []
+      "text_detection_terms": [
+        "hybrid"
+      ],
+      "cv_profile_section_terms": []
     },
     {
       "display_value": "Remote",
-      "terms": ["remote"],
-      "profile_summary_terms": []
+      "text_detection_terms": [
+        "remote"
+      ],
+      "cv_profile_section_terms": []
     },
     {
       "display_value": "On-site",
-      "terms": ["on-site", "onsite", "on site"],
-      "profile_summary_terms": ["på plats"]
+      "text_detection_terms": [
+        "on-site",
+        "onsite",
+        "on site"
+      ],
+      "cv_profile_section_terms": [
+        "på plats"
+      ]
     }
   ],
-  "location_heading_terms": ["ort", "plats", "adress", "location", "city"],
+  "location_related_terms": [
+    "ort",
+    "plats",
+    "adress",
+    "location",
+    "city"
+  ],
   "swedish_city_names": [
     "Stockholm",
     "Gothenburg",
@@ -114,7 +120,10 @@
   "country_terms": [
     {
       "country": "Sweden",
-      "terms": ["Sverige", "Sweden"]
+      "text_detection_terms": [
+        "Sverige",
+        "Sweden"
+      ]
     }
   ],
   "swedish_language_clues": [

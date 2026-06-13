@@ -23,12 +23,12 @@ import type {
   MissionProposalEditInput,
   MissionSlotInput,
 } from "~/missions/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 
 type MissionProposalReviewEditFormProps = {
   editWorkingCopy: unknown;
   updateEditWorkingCopy: (updater: (current: unknown) => unknown) => void;
-  referenceData: MarketplaceReferenceData | null;
+  referenceData: ReferenceData | null;
 };
 
 export function MissionProposalReviewEditForm({

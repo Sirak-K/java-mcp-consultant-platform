@@ -1,0 +1,197 @@
+{
+  "catalog_id": "generation_output_contract_schema",
+  "generation_output_contract_schema_version": "1.0.0",
+  "contract_name": "candidate_presentation_generation_output",
+  "response_format_type": "json_schema",
+  "top_level_fields": [
+    {
+      "contract_field_key": "presentationTitle",
+      "contract_field_description": "Canonical customer-presentable title for the generated Candidate Presentation draft.",
+      "contract_field_content_boundary": "Use exactly this format: Presentation för Matchnings-ID: <matchId>.",
+      "contract_field_required": true
+    },
+    {
+      "contract_field_key": "customerFacingContent",
+      "contract_field_description": "Directly customer-ready Candidate Presentation content.",
+      "contract_field_content_boundary": "Must not contain operations-only notes, internal evidence mechanics, debug text, or runtime/model language.",
+      "contract_field_required": true
+    },
+    {
+      "contract_field_key": "opsReviewContent",
+      "contract_field_description": "Operations-only review content for human editing, approval, and evidence inspection.",
+      "contract_field_content_boundary": "May contain uncertainty and evidence limitations; must not be sent as customer-facing prose.",
+      "contract_field_required": true
+    },
+    {
+      "contract_field_key": "evidenceTrace",
+      "contract_field_description": "Structured trace linking important generated claims to supplied evidence.",
+      "contract_field_content_boundary": "Compact evidence mapping only; not narrative content.",
+      "contract_field_required": true
+    }
+  ],
+  "json_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "urn:consultant-platform:candidate-presentation:generation-output-contract",
+    "title": "Candidate Presentation Generation Output",
+    "type": "object",
+    "properties": {
+      "presentationTitle": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 140,
+        "description": "Canonical customer-presentable title for the generated Candidate Presentation draft."
+      },
+      "customerFacingContent": {
+        "type": "object",
+        "description": "Directly customer-ready Candidate Presentation content.",
+        "properties": {
+          "Candidate Presentation Overview": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 220,
+            "description": "Concise overview of the presented candidate and matched mission context."
+          },
+          "Mission Overview": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 420,
+            "description": "Slot-neutral overview of the mission and customer need."
+          },
+          "Mission Slot Match Details": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 420,
+            "description": "One-slot summary for the exact mission slot this candidate is matched to."
+          },
+          "Matched Role": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "description": "Matched role for the single mission slot this artifact covers."
+          },
+          "Matched Primary Skills": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 420,
+            "description": "Primary skills that directly match the mission slot."
+          },
+          "Matched Secondary Skills": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 360,
+            "description": "Secondary skills that support the match."
+          },
+          "About the Matching Candidate": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 420,
+            "description": "Candidate name, matched role, and relevant professional profile."
+          },
+          "Role fit": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 420,
+            "description": "Why the candidate fits the matched mission role."
+          },
+          "Work mode fit": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 320,
+            "description": "How candidate work mode availability aligns with the mission."
+          },
+          "Experience and availability": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 420,
+            "description": "Experience level and availability facts relevant to the mission."
+          },
+          "Certifications": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 260,
+            "description": "Certifications or certification-like credentials present in evidence."
+          }
+        },
+        "required": [
+          "Candidate Presentation Overview",
+          "Mission Overview",
+          "Mission Slot Match Details",
+          "Matched Role",
+          "Matched Primary Skills",
+          "Matched Secondary Skills",
+          "About the Matching Candidate",
+          "Role fit",
+          "Work mode fit",
+          "Experience and availability",
+          "Certifications"
+        ],
+        "additionalProperties": false
+      },
+      "opsReviewContent": {
+        "type": "object",
+        "description": "Operations-only review content for human editing, approval, and evidence inspection.",
+        "properties": {
+          "Relevant Work Experience": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 700,
+            "description": "Internal work-experience evidence that helps operations review the presentation."
+          },
+          "Operations Review Notes": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 700,
+            "description": "Internal notes, uncertainty, gaps, and approval/edit concerns."
+          }
+        },
+        "required": [
+          "Relevant Work Experience",
+          "Operations Review Notes"
+        ],
+        "additionalProperties": false
+      },
+      "evidenceTrace": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 12,
+        "description": "Structured trace linking important generated claims to supplied evidence.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "Presentation Section": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 180,
+              "description": "The generated section whose claim is being supported."
+            },
+            "Evidence Family": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 180,
+              "description": "The evidence category used for the claim."
+            },
+            "Evidence Used": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 180,
+              "description": "The compact evidence detail used for the generated claim."
+            }
+          },
+          "required": [
+            "Presentation Section",
+            "Evidence Family",
+            "Evidence Used"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "presentationTitle",
+      "customerFacingContent",
+      "opsReviewContent",
+      "evidenceTrace"
+    ],
+    "additionalProperties": false
+  }
+}

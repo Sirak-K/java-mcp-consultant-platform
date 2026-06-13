@@ -16,7 +16,7 @@ import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "cand_profile_work_experiences", schema = "marketplace", uniqueConstraints = {
+@Table(name = "cand_profile_work_experiences", schema = "consultant_platform", uniqueConstraints = {
         @UniqueConstraint(name = "uk_cand_profile_work_experience", columnNames = { "cand_profile_id",
                 "work_experience_number" })
 }, indexes = {

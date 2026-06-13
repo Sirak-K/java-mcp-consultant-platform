@@ -4,11 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.nio.file.Path;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,8 +22,7 @@ import static mcp.server.foundation.support.catalog.ProjectCatalogJsonSupport.re
 public final class RuntimeTriageSymptomCatalogService {
 
   private static final Path RUNTIME_TRIAGE_SYMPTOM_CATALOG_PATH = Path.of(
-      "observability",
-      "runtime_triage",
+      "system_operations",
       "runtime_triage_symptom_catalog.json");
   private static final String CATALOG_LABEL = "Runtime triage symptom catalog";
   private static final String EXPECTED_CATALOG_ID = "runtime_triage_symptom_catalog";
@@ -48,7 +45,7 @@ public final class RuntimeTriageSymptomCatalogService {
 
     SymptomDefinition symptom = symptomDefinition(symptomKey);
     return new TriageSymptomView(
-        symptom.symptomId(),
+        symptom.symptomKey(),
         active,
         symptom.operatorHint(),
         signals);
@@ -63,7 +60,7 @@ public final class RuntimeTriageSymptomCatalogService {
     SignalDefinition signal = signalDefinition(symptomKey, signalKey);
     return new TriageSignalView(
         signal.source(),
-        signal.signalId(),
+        signal.signalKey(),
         observed,
         renderTemplate(signal.detailTemplate(), detailValues));
   }
@@ -94,7 +91,6 @@ public final class RuntimeTriageSymptomCatalogService {
           symptomKey,
           new SymptomDefinition(
               symptomKey,
-              requiredText(symptomNode, CATALOG_LABEL, "symptom_id"),
               requiredText(symptomNode, CATALOG_LABEL, "operator_hint"),
               loadSignals(symptomNode, symptomKey)));
       if (previous != null) {
@@ -106,22 +102,16 @@ public final class RuntimeTriageSymptomCatalogService {
 
   private static Map<String, SignalDefinition> loadSignals(JsonNode symptomNode, String symptomKey) {
     LinkedHashMap<String, SignalDefinition> signals = new LinkedHashMap<>();
-    Set<String> signalIds = new LinkedHashSet<>();
     for (JsonNode signalNode : array(symptomNode, CATALOG_LABEL, "signals")) {
       String signalKey = requiredText(signalNode, CATALOG_LABEL, "signal_key");
-      String signalId = requiredText(signalNode, CATALOG_LABEL, "signal_id");
       SignalDefinition previous = signals.putIfAbsent(
           signalKey,
           new SignalDefinition(
               signalKey,
               requiredText(signalNode, CATALOG_LABEL, "signal_source"),
-              signalId,
               requiredText(signalNode, CATALOG_LABEL, "detail_template")));
       if (previous != null) {
         throw new IllegalStateException("Duplicate runtime triage signal key: " + symptomKey + "." + signalKey);
-      }
-      if (!signalIds.add(signalId)) {
-        throw new IllegalStateException("Duplicate runtime triage signal id: " + symptomKey + "." + signalId);
       }
     }
     return java.util.Collections.unmodifiableMap(signals);
@@ -145,7 +135,6 @@ public final class RuntimeTriageSymptomCatalogService {
 
   private record SymptomDefinition(
       String symptomKey,
-      String symptomId,
       String operatorHint,
       Map<String, SignalDefinition> signalsByKey) {
   }
@@ -153,7 +142,6 @@ public final class RuntimeTriageSymptomCatalogService {
   private record SignalDefinition(
       String signalKey,
       String source,
-      String signalId,
       String detailTemplate) {
   }
 }

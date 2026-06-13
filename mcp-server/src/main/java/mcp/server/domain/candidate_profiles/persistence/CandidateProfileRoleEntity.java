@@ -14,7 +14,7 @@ import jakarta.persistence.UniqueConstraint;
 import mcp.server.domain.reference_data.persistence.CompetencyLevelLookupSupport;
 
 @Entity
-@Table(name = "cand_profile_roles", schema = "marketplace", uniqueConstraints = {
+@Table(name = "cand_profile_roles", schema = "consultant_platform", uniqueConstraints = {
         @UniqueConstraint(name = "uq_cand_profile_role_number", columnNames = { "cand_profile_id", "role_number" })
 })
 public class CandidateProfileRoleEntity {

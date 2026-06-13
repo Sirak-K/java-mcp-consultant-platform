@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "mission", schema = "marketplace")
+@Table(name = "mission", schema = "consultant_platform")
 public class MissionEntity {
 
     @Id

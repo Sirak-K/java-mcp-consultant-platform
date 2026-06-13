@@ -134,8 +134,10 @@ final class CandidateCvWorkingCopyTextDetectorTest {
             "Stockholm",
             List.of()));
 
-    CandidateProfileTextDetectionCatalogService catalogService = new CandidateProfileTextDetectionCatalogService(
+    CandidateCvExtractionCatalogService catalogService = new CandidateCvExtractionCatalogService(
         new ProjectCatalogJsonLoader(new ObjectMapper()));
+    assertThat(catalogService.candidateDoNotInferFields())
+        .contains("age", "salary_expectation", "consent_to_contact_references");
     CandidateCvTextMatcher textMatcher = new CandidateCvTextMatcher();
     CandidateCvDateRangeParser dateRangeParser = new CandidateCvDateRangeParser();
     CandidateCvSectionExtractor sectionExtractor = new CandidateCvSectionExtractor(catalogService, textMatcher);
@@ -150,6 +152,7 @@ final class CandidateCvWorkingCopyTextDetectorTest {
         new CandidateCvExperienceTextDetector(companyIdentityLookupService, locationTextDetector, dateRangeParser),
         new CandidateCvRoleTextDetector(roleRepo, catalogService, textMatcher),
         new CandidateCvSkillTextDetector(skillLookup, skillLevelRepo, catalogService, textMatcher),
-        new CandidateCvProfileAttributeTextDetector(catalogService, textMatcher));
+        new CandidateCvProfileAttributeTextDetector(catalogService, textMatcher),
+        catalogService);
   }
 }

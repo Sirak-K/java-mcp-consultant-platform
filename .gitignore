@@ -5,6 +5,7 @@ docs/*/
 # Artifacts - Backend
 mcp-server/target/
 logs/
+*.pid
 
 # Artifacts - Frontend
 web-app/node_modules/

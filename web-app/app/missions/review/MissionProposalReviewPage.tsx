@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { missionsApi, missionsApiPaths } from "~/missions/api/missionsApi";
 import { referenceDataApi } from "~/reference_data/api/referenceDataApi";
 import type { MissionProposalEditInput, MissionProposalView } from "~/missions/types";
-import type { MarketplaceReferenceData } from "~/reference_data/types";
+import type { ReferenceData } from "~/reference_data/types";
 import { OperationsIntakeReviewQueue } from "~/system_operations/review/OperationsIntakeReviewQueue";
 import {
   buildMissionProposalEditInput as buildEditInput,
@@ -41,7 +41,7 @@ function isMissionProposalReviewComplete(item: MissionProposalView): boolean {
 
 export default function MissionProposalReviewPage() {
   const [referenceData, setReferenceData] =
-    useState<MarketplaceReferenceData | null>(null);
+    useState<ReferenceData | null>(null);
 
   useEffect(() => {
     let mounted = true;
